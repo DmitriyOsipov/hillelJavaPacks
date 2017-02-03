@@ -1,8 +1,36 @@
 package utilClasses;
 
+import javafx.util.converter.IntegerStringConverter;
+
+import java.io.BufferedReader;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class UserConsoleReader {
+    public int[] readPointCoordinates() throws Exception{
+        int[] coordinates ={0, 0};
+        System.out.println("\tEnter coordinates of the point");
+        Scanner scanner = new Scanner(System.in);
+
+        String[] arr = scanner.nextLine().split(" ");
+        if (arr.length == 2){
+            try {
+                coordinates[0] = Integer.parseInt(arr[0]);
+                coordinates[1] = Integer.parseInt(arr[1]);
+            }
+            catch (NumberFormatException ex)
+            {
+                System.out.println("\tWrong format");
+            }
+        }
+        else{
+            System.out.println("\tWrong format");
+        }
+
+        System.out.println("\tCoordinates of the point: " + Arrays.toString(coordinates));
+        return coordinates;
+    }
+
     public char readChar(){
         char result = ' ';
         Scanner scanner = new Scanner(System.in);
