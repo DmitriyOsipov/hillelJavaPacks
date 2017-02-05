@@ -45,6 +45,7 @@ public class ArrPaint {
         }
     }
 
+
     public void showArray(char[][] arrayToShow)
     {
         int xDimension = arrayToShow.length;
