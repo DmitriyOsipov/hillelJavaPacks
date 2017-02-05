@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class UserConsoleReader {
     public int[] readPointCoordinates() throws Exception{
         int[] coordinates ={0, 0};
-        System.out.println("\tEnter coordinates of the point");
+        System.out.println("\tEnter coordinates of the point (x y)");
         Scanner scanner = new Scanner(System.in);
 
         String[] arr = scanner.nextLine().split(" ");
