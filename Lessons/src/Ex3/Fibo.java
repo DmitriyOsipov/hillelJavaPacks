@@ -36,9 +36,50 @@ public class Fibo {
             }
             System.out.println();
             System.out.println();
-            System.out.println("\t" + num + " Fibonacci number is " + fn);
+            System.out.println("\t" + num + " Fibonacci number is " + fnAll);
+
+            System.out.println("----------------------------------------");
+            System.out.println("Array version 2");
+            System.out.println("Calculating all numbers to Fn");
+            long[] fiboArray2 = new long[num];
+            fiboArray2[0]=1;
+            if (num>1) {
+                fiboArray2[1] = 1;
+            }
+            for (int i=2; i<num; i++){
+                fiboArray2[i] = fiboArray2[i-1] + fiboArray2[i-2];
+            }
+            for (long fiboEl : fiboArray2){
+                System.out.print(fiboEl + "  ");
+            }
+            System.out.println();
+            System.out.println();
+            System.out.println("\t" + num + " Fibonacci number is " + fiboArray2[num-1]);
+            System.out.println("----------------------------------------");
+
+            System.out.println("Calculating Fn with recursion");
+            try {
+                long fiboRec = recFibo(num);
+                System.out.println("\t" + num + " Fibonacci number is " + fiboRec);
+            }
+            catch (StackOverflowError er){
+                System.out.println("Too many recursion! Stack overflow!");
+            }
+
             System.out.println("----------------------------------------");
         }
         while (userConsoleReader.isRepeatYes());
+    }
+
+    public static long recFibo(int number){
+        long res = 1;
+        if (number == 1){
+            return 1;
+        }
+        if (number==2){
+            return 1;
+        }
+        res = recFibo(number-2) + recFibo(number - 1);
+        return res;
     }
 }
