@@ -13,6 +13,10 @@ public class SudentsDataExtended {
             group = addStudent(group, name);
         }
         group[2] = addDiscipline(group[2], "Math");
+        group[2][1] = addMark(group[2][1], "NA");
+        group[2][1] = addMark(group[2][1], "75");
+        group[2][1] = addMark(group[2][1], "60");
+
         /*
         group[0][1][0] = "Math";
         group[0][1][1] = "4";
@@ -70,6 +74,15 @@ public class SudentsDataExtended {
             result = disciplinesArray;
         }
 
+        return result;
+    }
+
+    public static String[] addMark(String[] marksArray, String newMark){
+        String[] result = new String[marksArray.length + 1];
+        for (int i = 0; i < marksArray.length; i ++){
+            result[i] = marksArray[i];
+        }
+        result[marksArray.length] = newMark;
         return result;
     }
 
