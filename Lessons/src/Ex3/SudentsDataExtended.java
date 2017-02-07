@@ -13,8 +13,10 @@ public class SudentsDataExtended {
             group = addStudent(group, name);
         }
         group[2] = addDiscipline(group[2], "Math");
-        group[2][1] = addMark(group[2][1], "NA");
-        group[2][1] = addMark(group[2][1], "75");
+        int mathInd = indexOfDiscipline(group[2], "Math");
+        int stInd = indexOfStudent(group, "Ivanov");
+        group[2][mathInd] = addMark(group[2][1], "NA");
+        group[stInd][1] = addMark(group[2][1], "75");
         group[2][1] = addMark(group[2][1], "60");
 
         /*
@@ -86,6 +88,18 @@ public class SudentsDataExtended {
         return result;
     }
 
+    public static int indexOfDiscipline(String[][] disciplinesArray, String checkDiscipline){
+        int result = -1;
+        if (countDisciplines(disciplinesArray, checkDiscipline) != 0 ){
+           for (int i=0; i<disciplinesArray.length; i++){
+                if (disciplinesArray[i][0] == checkDiscipline){
+                    result = i;
+                }
+            }
+        }
+        return result;
+    }
+
     public static int countDisciplines(String[][] disciplinesArray, String checkDiscipline){
         int counter = 0;
 
@@ -98,6 +112,30 @@ public class SudentsDataExtended {
         }
 
         return counter;
+    }
+
+    public static int countStudents(String[][][] group, String studentName){
+        int result = 0;
+        if (group!=null){
+            for (int i = 0; i < group.length; i++){
+                if (group[i][0][0] == studentName){
+                    result++;
+                }
+            }
+        }
+        return result;
+    }
+    public static int indexOfStudent(String[][][] group, String studentName){
+        int result = -1;
+        if (countStudents(group, studentName) != 0){
+            for (int i=0; i < group.length; i++){
+                if (group[i][0][0] == studentName){
+                    result = i;
+                    break;
+                }
+            }
+        }
+        return result;
     }
 
     public static void printGroup(String[][][] group, String skipMark, String groupName){
