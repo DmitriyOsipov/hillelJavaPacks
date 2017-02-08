@@ -3,77 +3,12 @@ package Ex3;
 import utilClasses.UserConsoleReader;
 
 import java.util.Arrays;
+import java.util.Random;
 
 public class SudentsDataExtended {
 
     public static void main(String[] args) throws Exception{
-        String[][][] group = null;
-        String skipMark = "NA";
-        String groupName = "Test";
-
-        String[] names = {"Sidorov", "Petrov", "Ivanov", " ", "", "    "};
-
-        for (String name:names) {
-            group = addStudent(group, name);
-        }
-        group[2] = addDiscipline(group[2], "Math");
-        int mathInd = indexOfDiscipline(group[2], "Math");
-        int stInd = indexOfStudent(group, "Ivanov");
-        group[2][mathInd] = addMark(group[2][1], "NA");
-        group[stInd][1] = addMark(group[2][1], "75");
-        group[2][1] = addMark(group[2][1], "60");
-        stInd = indexOfStudent(group, "Sidorov");
-        group[stInd] = addDiscipline(group[stInd], "Literature");
-        int litIndex = indexOfDiscipline(group[stInd], "Literature");
-        group[stInd][litIndex] = addMark(group[stInd][litIndex], "50");
-        group[stInd][litIndex] = addMark(group[stInd][litIndex], "25");
-        group[stInd][litIndex] = addMark(group[stInd][litIndex], skipMark);
-        /*
-        group[0][1][0] = "Math";
-        group[0][1][1] = "4";
-
-        group[1][1][0] = "Philosophy";
-        group[1][1][1] = "NA";*/
-        //group[0][1][2] = skipMark;
-        printGroup(group, skipMark, groupName);
-
-        System.out.println("Sorting");
-        group = sortStudents(group);
-        printGroup(group, skipMark, groupName);
-        /*group=clear();
-        printGroup(group, skipMark, groupName);*/
-        System.out.println("+++++++Trim+++++++++");
-        group = trim(group);
-        printGroup(group, skipMark, groupName);
-
-        String[] names1 = {"Skipper", "Rico", "Kowalski", "Private"};
-        String[] names2 = {"King Julien", "Maurice", "Mort"};
-        String[][][] groupPenguins = null;
-        String[][][] groupLemurs = null;
-        String[][][] groupCharacters = null;
-
-        System.out.println("++++Join nulls");
-        groupCharacters = joinGroups(groupPenguins, groupLemurs);
-        printGroup(groupCharacters, skipMark, "Nulls");
-        for (String penguin:names1){
-            groupPenguins = addStudent(groupPenguins, penguin);
-        }
-
-        System.out.println("++++Join penguins isn't null");
-        groupCharacters = joinGroups(groupPenguins, groupLemurs);
-        printGroup(groupCharacters, skipMark, "Penguins + nulls");
-
-        for (String lemur:names2){
-            groupLemurs = addStudent(groupLemurs, lemur);
-        }
-
-        System.out.println("++++Join null + lemurs");
-        groupCharacters = joinGroups(null, groupLemurs);
-        printGroup(groupCharacters, skipMark, "Nulls + lemurs");
-        System.out.println("++++Join all");
-        groupCharacters = joinGroups(groupPenguins, groupLemurs);
-        printGroup(groupCharacters, skipMark, "Characters of The Penguins of Madagascar");
-
+        demo();
     }
 
     public static String[][][] addStudent(String[][][] group, String newStudent){
@@ -352,8 +287,8 @@ public class SudentsDataExtended {
         String[][][] groupFirst = groupOne;
         String[][][] groupSecond = groupTwo;
         if (makeSortBeforeComparation){
-            groupFirst = sortStudents(groupFirst);
-            groupSecond = sortStudents(groupSecond);
+            groupFirst = sortStudents(copyGroup(groupFirst));
+            groupSecond = sortStudents(copyGroup(groupSecond));
         }
 
         boolean result = true;
@@ -383,7 +318,7 @@ public class SudentsDataExtended {
                     System.out.print("\t" + group[i][j][0] + " marks: ");
                     int skips=0;
                     for (int k = 1; k < group[i][j].length; k++){
-                        if (group[i][j][k] == (skipMark)){
+                        if (group[i][j][k].startsWith(skipMark)){
                             skips++;
                         }
                         else {
@@ -398,6 +333,23 @@ public class SudentsDataExtended {
         else {
             System.out.println("Group is empty.");
         }
+    }
+
+    public static String[][][] copyGroup(String[][][] group){
+        String[][][] result=null;
+        if (group!=null){
+            result = new String[group.length][][];
+            for (int i=0; i<group.length; i++){
+                result[i] = new String[group[i].length][];
+                for (int j=0; j<group[i].length; j++){
+                    result[i][j] = new String[group[i][j].length];
+                    for (int k=0; k<group[i][j].length; k++){
+                        result[i][j][k] = new String(group[i][j][k]);
+                    }
+                }
+            }
+        }
+        return result;
     }
 
 
@@ -426,8 +378,92 @@ public class SudentsDataExtended {
 
         String[][] subjects = {{"Algebra", "Physics", "Geometry"},
                                 {"Literature", "Philosophy", "English"},
-                                {"Biology", "Chemistry", "Medicine"}};
+                                {"Biology", "Chemistry", "Medicine"},
+                                {"Economics", "Management", "Accounting"},
+                                {"Geography", "Logistics", "Traffic"},
+                                {"Cultural studies", "Religious", "Philosophy"}};
 
+        Random rand = new Random();
+
+        System.out.println("++++Adding subjects");
+        for (int i=0; i<groupA.length; i++){
+            int subjInd = rand.nextInt(subjects.length);
+            for (int j=0; j<subjects[subjInd].length; j++) {
+                groupA[i] = addDiscipline(groupA[i], subjects[subjInd][j]);
+            }
+        }
+        printGroup(groupA, skipMark, groupAName);
+
+        for (int i=0; i<groupB.length; i++){
+            int subjInd = rand.nextInt(subjects.length);
+            for (int j=0; j<subjects[subjInd].length; j++) {
+                groupB[i] = addDiscipline(groupB[i], subjects[subjInd][j]);
+            }
+        }
+        printGroup(groupB, skipMark, groupBName);
+
+        String[] marks = {"35", "25", "40", "50", skipMark, "15", "10", "27", "33", skipMark, "49"};
+
+        System.out.println("++++Adding marks");
+        for (int i=0; i < groupA.length; i++){
+            for (int j=1; j<groupA[i].length; j++){
+                int marksQuant = rand.nextInt(15);
+                for (int k=0; k<marksQuant; k++) {
+                    groupA[i][j] = addMark(groupA[i][j], marks[rand.nextInt(marks.length)]);
+                }
+            }
+        }
+        printGroup(groupA, skipMark, groupAName);
+
+        for (int i=0; i < groupB.length; i++){
+            for (int j=1; j<groupB[i].length; j++){
+                int marksQuant = rand.nextInt(15);
+                for (int k=0; k<marksQuant; k++) {
+                    groupB[i][j] = addMark(groupB[i][j], marks[rand.nextInt(marks.length)]);
+                }
+            }
+        }
+        printGroup(groupB, skipMark, groupBName);
+
+        System.out.println("++++Checking a new student in A");
+        System.out.println("Count: " + countStudents(groupA, newStudent));
+        System.out.println("++++Adding " + newStudent);
+        groupA = addStudent(groupA, newStudent);
+        printGroup(groupA, skipMark, groupAName);
+        System.out.println("Count: " + countStudents(groupA, newStudent));
+        System.out.println("+++++Delete " + newStudent);
+        groupA = deleteStudent(groupA, newStudent);
+        System.out.println("Count " + newStudent + ": " + countStudents(groupA, newStudent));
+        printGroup(groupA, skipMark, groupAName);
+
+        System.out.println("++++Adding '   ' as a new student and sort groupA:");
+        groupA = addStudent(groupA, "      ");
+        groupA = sortStudents(groupA);
+        printGroup(groupA, skipMark, groupAName);
+        System.out.println("++++++Trim groupA");
+        groupA = trim(groupA);
+        printGroup(groupA, skipMark, groupAName);
+
+        System.out.println("++++Join groupA and groupB to groupC");
+        groupC = joinGroups(groupA, groupB);
+        printGroup(groupC, skipMark, groupCName);
+
+        System.out.println("+++++Contains groupC groupB?");
+        System.out.println(containsAll(groupC, groupB));
+        System.out.println("+++++Contains groupA groupC?");
+        System.out.println(containsAll(groupA, groupC));
+
+        System.out.println("+++++Is groupC and groupB equal?");
+        System.out.println(equals(groupC, groupB, false));
+        System.out.println("+++++Is groupB and groupB equal?");
+        System.out.println(equals(groupB, groupB, false));
+        System.out.println("+++++Is groupB and sorted copy of groupB equal?");
+        String[][][] copyB = copyGroup(groupB);
+        copyB = sortStudents(copyB);
+        printGroup(copyB, skipMark, "Sorted copy of B");
+        System.out.println(equals(groupB, copyB, false));
+        System.out.println("+++++Is groupB and sorted groupB equal if we insert 'true' as 'makeSortBeforeComparation' parameter to equals()?");
+        System.out.println(equals(groupB, sortStudents(groupB), true));
 
     }
 }
