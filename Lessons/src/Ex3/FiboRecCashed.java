@@ -1,12 +1,11 @@
 package Ex3;
 
 import utilClasses.UserConsoleReader;
-
 import java.math.BigInteger;
 import java.util.HashMap;
 
 public class FiboRecCashed {
-    static HashMap<Integer, BigInteger> cache = new HashMap<Integer, BigInteger>();
+    private static HashMap<Integer, BigInteger> cache = new HashMap<Integer, BigInteger>();
     public static void main(String[] args) throws Exception{
         UserConsoleReader userConsoleReader = new UserConsoleReader();
         do {
@@ -14,6 +13,7 @@ public class FiboRecCashed {
 
             int number = userConsoleReader.readInt(0);
             BigInteger fiboRec = fiboCashed(number, BigInteger.ZERO, BigInteger.ONE);
+            System.out.println("===============================================================");
             System.out.println(number + " Fibonacci number (counted by recursion with cache) is");
             System.out.println(fiboRec.toString());
 
@@ -31,4 +31,5 @@ public class FiboRecCashed {
         result = firstEl.add(fiboCashed(num-1, secondEl, secondEl.add(firstEl)));
         return result;
     }
+
 }
