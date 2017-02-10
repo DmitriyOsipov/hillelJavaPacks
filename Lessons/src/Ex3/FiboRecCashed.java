@@ -29,7 +29,7 @@ public class FiboRecCashed {
             return result;
         }
         result = firstEl.add(fiboCashed(num-1, secondEl, secondEl.add(firstEl)));
-        cache.put(x, result);
+        cache.put(num, result);
         return result;
     }
 
