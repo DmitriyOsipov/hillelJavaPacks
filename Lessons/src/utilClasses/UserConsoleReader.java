@@ -140,6 +140,25 @@ public class UserConsoleReader {
 
         return result;
     }
+    public long readLong(int bound){
+        long result = 0L;
+        boolean isResultOk=false;
+        Scanner scanner = new Scanner(System.in);
+
+        do {
+            //System.out.println();
+            if ((scanner.hasNextLong())&&((result = scanner.nextLong())>bound)) {
+                isResultOk = true;
+            } else {
+                scanner.next();
+                isResultOk = false;
+                System.out.println("Number, greater than " + bound + ", please.");
+            }
+        }
+        while (!isResultOk);
+
+        return result;
+    }
 
     public boolean isRepeatYes() throws Exception{
 
