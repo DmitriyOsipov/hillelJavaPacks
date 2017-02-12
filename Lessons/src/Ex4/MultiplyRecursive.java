@@ -8,16 +8,23 @@ public class MultiplyRecursive {
     public static void main(String[] args) throws Exception{
         UserConsoleReader userConsoleReader = new UserConsoleReader();
         int firsNum, secondNum;
-        long result;
+        long result=0L;
 
         do {
             System.out.println("Input first number");
             firsNum = userConsoleReader.readInt(-1);
             System.out.println("Input second number");
             secondNum = userConsoleReader.readInt(-1);
-            result = multiply(firsNum, secondNum, firsNum);
-            System.out.println(result);
+            try {
+                result = multiply(firsNum, secondNum, firsNum);
+                System.out.println(result);
+            }
+            catch (StackOverflowError error){
+                System.out.println("Stack overflow error!");
+            }
             //System.out.println(multiply(BigInteger.valueOf(firsNum), BigInteger.valueOf(secondNum), BigInteger.valueOf(firsNum)));
+
+            System.out.println("For check: " + firsNum + " x " + secondNum + " = " + firsNum*secondNum);
         }while (userConsoleReader.isRepeatYes());
     }
 
