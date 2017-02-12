@@ -11,7 +11,6 @@ public class Reverse {
             System.out.println("Input your number");
             int inputNumber = userConsoleReader.readInt(0);
             System.out.println("Input is: " + inputNumber);
-
             System.out.println("Reversed: " );
             reverseNumber(inputNumber);
             System.out.println();
