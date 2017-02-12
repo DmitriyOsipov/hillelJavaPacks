@@ -127,10 +127,11 @@ public class UserConsoleReader {
         Scanner scanner = new Scanner(System.in);
 
         do {
+            //System.out.println();
             if ((scanner.hasNextInt())&&((result = scanner.nextInt())>bound)) {
                 isResultOk = true;
             } else {
-                //scanner.next();
+                scanner.next();
                 isResultOk = false;
                 System.out.println("Integer, greater than " + bound + ", please.");
             }
