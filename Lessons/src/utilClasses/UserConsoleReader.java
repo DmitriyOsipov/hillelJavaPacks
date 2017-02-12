@@ -37,6 +37,13 @@ public class UserConsoleReader {
         result = scanner.next().charAt(0);
         return result;
     }
+
+    public String readString(){
+        String result = "";
+        Scanner scanner = new Scanner(System.in);
+        result = scanner.next();
+        return result;
+    }
     public double readDouble(){
         double result = 0;
         boolean isResultOk=false;
