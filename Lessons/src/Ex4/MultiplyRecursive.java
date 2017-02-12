@@ -38,8 +38,6 @@ public class MultiplyRecursive {
         if ((y==1)){
             return a;
         }
-        //*/
-        //a+=x;
         return multiply(x, y-1, a+x);
     }
 /*
