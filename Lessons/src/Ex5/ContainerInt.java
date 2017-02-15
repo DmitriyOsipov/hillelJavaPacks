@@ -6,15 +6,24 @@ package Ex5;
 public class ContainerInt {
     private int[] container;
 
-    public ContainerInt(int firstElemetValue){
-        this.add(firstElemetValue);
+    public ContainerInt(){
+        this.container = new int[0];
+    }
+    public ContainerInt(int firstElementValue){
+        this.add(firstElementValue);
     }
     public ContainerInt(int[] array){
         this.container = array.clone();
     }
 
     private boolean isNull(){
-        return (this.container == null);
+        if (this.container == null){
+            this.container = new int[0];
+            return true;
+        }
+        else {
+            return false;
+        }
     }
     private boolean isEmpty(){
         return this.isEmpty(false);
@@ -34,7 +43,7 @@ public class ContainerInt {
     }
     private boolean checkIndex(int indexValue){
         boolean result;
-        if ((!this.isEmpty()) && (indexValue >= 0) && (indexValue < this.container.length)){
+        if ((!this.isEmpty(true)) && (indexValue >= 0) && (indexValue < this.container.length)){
             result = true;
         }
         else {
@@ -80,8 +89,12 @@ public class ContainerInt {
         }
     }
 
+    public ContainerInt clone(){
+        return new ContainerInt(this.getArrayCopy());
+    }
+
     public void clear(){
-        this.container = null;
+        this.container = new int[0];
     }
 
     public boolean contains(int value){
@@ -173,12 +186,92 @@ public class ContainerInt {
         return result;
     }
 
+    public double getSum(){
+        double result = 0;
+        for (int element: this.container){
+            result+=element;
+        }
+        return result;
+    }
+
+    public double getAverage(){
+        return this.getSum()/this.getSize();
+    }
+
+    public int count(int what){
+        int result = 0;
+        for (int element : this.container){
+            if (element==what){
+                result++;
+            }
+        }
+        return result;
+    }
+
+    public void sort(){
+        if(!this.isEmpty()){
+            this.quickSort(0, this.getSize()-1);
+        }
+    }
+
+    private void bubbleSort(){
+        if (!this.isEmpty()) {
+            boolean change;
+            int op=0;
+            do {
+                change = false;
+                for (int i = 1; i < this.getSize(); i++) {
+                    if (this.container[i - 1] > this.container[i]) {
+                        int temp = this.container[i];
+                        this.container[i] = this.container[i - 1];
+                        this.container[i-1] = temp;
+                        change = true;
+                    }
+                }
+                op++;
+                /*
+                if (op%10_000==0){
+                    System.out.println(op);
+                }//*/
+            } while (change);
+        }
+    }
+
+    private void quickSort(int start, int end){
+        if(start>=end){
+            return;
+        }
+        int i=start, j=end;
+        int center = i-(i-j)/2;
+        while(i<j){
+            while ((i<center)&&(this.container[i]<=this.container[center])) {
+                i++;
+            }
+            while ((j>center)&&(this.container[j]>=this.container[center])){
+                j--;
+            }
+            if (i<j){
+                int temp = this.container[i];
+                this.container[i]=this.container[j];
+                this.container[j] = temp;
+                if (i==center){
+                    center=j;
+                }
+                else if(j==center){
+                    center = i;
+                }
+            }
+        }
+        quickSort(start, center);
+        quickSort(center+1, end);
+    }
+
     public String toString(){
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("[");
         if (!this.isEmpty()) {
             for (int i = 0; i < this.getSize() - 1; i++) {
-                stringBuilder.append(this.container[i] + ", ");
+                stringBuilder.append(this.container[i] + "  ");
             }
             stringBuilder.append(this.container[this.getSize() - 1]);
         }
