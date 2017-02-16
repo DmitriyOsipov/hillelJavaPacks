@@ -13,7 +13,7 @@ public class Person {
     protected int id;
     protected String name;
     protected String surname;
-    protected GregorianCalendar birthday;
+    protected final GregorianCalendar birthday;
 
     protected Person(int id, String name, String surname, int birthYear, int birthMonth, int birthDay) {
         this.id = id;
