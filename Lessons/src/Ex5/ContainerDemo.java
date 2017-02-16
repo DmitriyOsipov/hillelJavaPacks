@@ -22,9 +22,8 @@ public class ContainerDemo {
         for (int i=0; i<50000; i++){
             firstContainer.add(random.nextInt(10000));
         }
+        ContainerInt secondContainer = new ContainerInt(firstContainer.getArrayCopy());
         System.out.println(firstContainer.toString());
-
-        ContainerInt secondContainer = firstContainer.clone();
 
         long start = System.currentTimeMillis();
         firstContainer.sort();
@@ -33,13 +32,16 @@ public class ContainerDemo {
         System.out.println(firstContainer.toString());
         System.out.println("Sorted in " + timeSortSeconds + " milliseconds");
 
-        /*
+
+        //System.out.println(secondContainer.toString());
         long start2 = System.currentTimeMillis();
         secondContainer.bubbleSort();
         long end2 = System.currentTimeMillis();
-        double timeSortSeconds2 = (end2 - start2);///1000;
+        double timeSortSeconds2 = (end2 - start2);//1000;
         System.out.println(secondContainer.toString());
-        System.out.println("Sorted by bubbles in " + timeSortSeconds2 + " milliseconds");//*/
+        System.out.println("Sorted with bubbles in " + timeSortSeconds2 + " milliseconds");
+
+
 
     }
 }

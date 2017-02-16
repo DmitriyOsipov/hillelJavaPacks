@@ -214,7 +214,7 @@ public class ContainerInt {
         }
     }
 
-    private void bubbleSort(){
+    public void bubbleSort(){
         if (!this.isEmpty()) {
             boolean change;
             int op=0;
