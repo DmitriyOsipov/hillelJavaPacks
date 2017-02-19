@@ -46,6 +46,6 @@ public class Animal {
     }
 
     public String makeVoice(){
-        return "Hello, ";
+        return "Hello,";
     }
 }

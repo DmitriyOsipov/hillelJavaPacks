@@ -22,7 +22,12 @@ public class GuideDog extends Dog{
     }
 
     public void takeHome(){
-        System.out.println("You are at home now");
+        if (isTrained) {
+            System.out.println("You are at home now");
+        }
+        else {
+            System.out.println("I'm not trained. I cannot take you home");
+        }
     }
 
     public String makeVoice(){
