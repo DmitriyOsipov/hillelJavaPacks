@@ -13,5 +13,5 @@ Tasks:
 +    public boolean removeAll(MyCollection c);
 +    public boolean containsAll(MyCollection c);
 
-2. Реализовать интерфейс Iterable для своих реализаций ArrayList и LinkedList
++2. Реализовать интерфейс Iterable для своих реализаций ArrayList и LinkedList
 3. Добавить алгоритмы поиска в контейнеры
