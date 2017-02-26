@@ -2,9 +2,6 @@ package Ex8;
 
 import java.util.Iterator;
 
-/**
- * Created by mtzadmin on 24.02.2017.
- */
 public class SimpleLinkedList implements Iterable{
     private LinkedListElement first = null;
     private LinkedListElement last = null;
