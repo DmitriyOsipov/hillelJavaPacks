@@ -1,13 +1,15 @@
 package Ex8;
 
+import java.util.Iterator;
+
 /**
  * Created by mtzadmin on 24.02.2017.
  */
-public class SimpleLinkedList{
+public class SimpleLinkedList implements Iterable{
     private LinkedListElement first = null;
     private LinkedListElement last = null;
-    private int size = 0;
-    boolean sizeChanged = false;
+    private int sizeList = 0;
+    private boolean sizeChanged = false;
 
     public SimpleLinkedList(){
 
@@ -57,11 +59,15 @@ public class SimpleLinkedList{
     }
 
     public boolean containsAll(SimpleLinkedList list){
+        if (list==this){
+            return true;
+        }
         LinkedListElement inputElement = list.first;
         while (inputElement!=null){
-            if (!this.contains(inputElement)){
+            if (!this.contains(inputElement.getValue())){
                 return false;
             }
+            inputElement = inputElement.getNext();
         }
         return true;
     }
@@ -78,6 +84,7 @@ public class SimpleLinkedList{
                 }
                 element.setNext(element.getNext().getNext());
                 result = true;
+                sizeChanged=true;
             }
             element = element.getNext();
         }
@@ -122,20 +129,20 @@ public class SimpleLinkedList{
     public void clear(){
         this.first = null;
         this.last = null;
-        this.size = 0;
+        this.sizeList = 0;
         sizeChanged = true;
     }
 
-    public int getSize() {
+    public int size() {
         if (sizeChanged){
-            this.size = 0;
+            this.sizeList = 0;
             LinkedListElement element = first;
             while (element !=null){
-                size++;
+                sizeList++;
                 element = element.getNext();
             }
         }
-        return size;
+        return sizeList;
     }
 
     @Override
@@ -150,5 +157,52 @@ public class SimpleLinkedList{
         builder.append("]");
         return builder.toString();
     }
+
+    @Override
+    public Iterator iterator() {
+        return new Iterator() {
+            LinkedListElement current = first;
+            LinkedListElement previous = null;
+
+            @Override
+            public boolean hasNext() {
+                //return (current.getNext()!=null);
+                return (current!=null);
+            }
+
+
+            @Override
+            public Object next() throws IndexOutOfBoundsException{
+
+                Object result = current.getValue();
+                /*
+                if (!hasNext()){
+                    throw new IndexOutOfBoundsException();
+                }*/
+                previous = current;
+                current = current.getNext();
+
+                return result;
+            }
+
+
+            @Override
+            public void remove(){
+                if (!hasNext()){
+                    previous.setNext(null);
+                }
+                else {
+                    if (previous!=null) {
+                        previous.setNext(current.getNext());
+                    }
+                    else {
+                        current = current.getNext();
+                        first = current;
+                    }
+                }
+            }
+        };
+    }
+
 
 }
