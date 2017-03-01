@@ -20,6 +20,26 @@ public class MyLinkedList implements List{
         this.add(object);
     }
 
+
+    boolean equals(MyLinkedList list){
+        if (list == this){
+            return true;
+        }
+        if (list.size()!=this.size()){
+            return false;
+        }
+        LinkedListElement elementThis = this.first;
+        LinkedListElement elementInput = list.first;
+        while ((elementThis!=null)&&(elementInput!=null)){
+            if (!elementThis.getValue().equals(elementInput.getValue())){
+                return false;
+            }
+            elementInput = elementInput.getNext();
+            elementThis = elementThis.getNext();
+        }
+        return true;
+    }
+
     @Override
     public int size() {
         if (sizeChanged){
@@ -176,18 +196,27 @@ public class MyLinkedList implements List{
     @Override
     public boolean remove(Object object) {
         LinkedListElement element = first;
+        LinkedListElement previous = null;
         boolean result = false;
-        while (element.getNext()!=null){
-            if (element.getNext().getValue().equals(object)){
-                if (last==element.getNext()){
-                    last = element;
-                    last.setNext(null);
-                    return true;
+        while (element!=null){
+            if (element.getValue().equals(object)){
+                if (first == element){
+                    first = element.getNext();
                 }
-                element.setNext(element.getNext().getNext());
+                else{
+                    if (last==element){
+                        last = previous;
+                        last.setNext(null);
+                        return true;
+                    }
+                    else {
+                        previous.setNext(element.getNext());
+                    }
+                }
                 result = true;
                 sizeChanged=true;
             }
+            previous = element;
             element = element.getNext();
         }
         return result;
@@ -228,21 +257,6 @@ public class MyLinkedList implements List{
             res = this.add(objects[i]);
         }
         return res;
-    }
-    public boolean addAll(MyLinkedList list){
-        try {
-            if (last == null){
-                this.first = list.first;
-                this.last = list.last;
-            }
-            this.last.setNext(list.first);
-            this.last = list.last;
-            this.sizeChanged = true;
-        }
-        catch (Exception ex){
-            return false;
-        }
-        return true;
     }
 
     @Override
@@ -407,13 +421,83 @@ public class MyLinkedList implements List{
 
     @Override
     public ListIterator listIterator() {
-        return null;
+        return listIterator(0);
     }
-
+    //*
     @Override
     public ListIterator listIterator(int index) {
-        return null;
+        if ((index<0)||(index>=size())) {
+            throw new IndexOutOfBoundsException();
+        }
+        return new ListIterator() {
+            int current = index;
+
+            @Override
+            public boolean hasNext() {
+                return current!=size();
+            }
+
+            @Override
+            public Object next() {
+                Object result = get(current);
+                current++;
+                return result;
+            }
+
+            @Override
+            public boolean hasPrevious() {
+                return current>0;
+            }
+
+            @Override
+            public Object previous() {
+                current--;
+                Object result = get(current);
+                return result;
+            }
+
+            @Override
+            public int nextIndex() {
+                return current + 1;
+            }
+
+            @Override
+            public int previousIndex() {
+                return current - 1;
+            }
+
+            @Override
+            public void remove() {
+                if(current==0){
+                    first = first.getNext();
+                    return;
+                }
+                if (current==size()-1)
+                {
+                    last = getElement(current-1);
+                    current--;
+                    last.setNext(null);
+                    return;
+                }
+                LinkedListElement elPrev = getElement(current-1);
+                LinkedListElement elCur = elPrev.getNext();
+                elPrev.setNext(elCur.getNext());
+                elCur.setNext(null);
+            }
+
+            @Override
+            public void set(Object o) {
+                MyLinkedList.this.set(current, o);
+            }
+
+            @Override
+            public void add(Object o) {
+                MyLinkedList.this.add(current, o);
+                current++;
+            }
+        };
     }
+    //*/
 
     @Override
     public List subList(int fromIndex, int toIndex) {
@@ -422,11 +506,15 @@ public class MyLinkedList implements List{
         }
         MyLinkedList newSubList = new MyLinkedList();
         newSubList.addAll(this);
-        newSubList.removeAll(toIndex-1);
-        newSubList.first = newSubList.getElement(fromIndex);
+        newSubList.removeAll(toIndex);
+
+        LinkedListElement old = new LinkedListElement(null, null);
         if (fromIndex>0){
-            newSubList.getElement(fromIndex-1).setNext(null);
+            old = newSubList.getElement(fromIndex-1);
         }
+        newSubList.first = newSubList.getElement(fromIndex);
+
+        old.setNext(null);
 
         return newSubList;
     }
