@@ -49,6 +49,7 @@ public class MyLinkedList implements List{
                 sizeList++;
                 element = element.getNext();
             }
+            sizeChanged = false;
         }
         return sizeList;
     }
