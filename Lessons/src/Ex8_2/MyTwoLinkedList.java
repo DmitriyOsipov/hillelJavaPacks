@@ -49,6 +49,7 @@ public class MyTwoLinkedList implements List{
                 sizeList++;
                 element = element.getNext();
             }
+            sizeChanged = false;
         }
         return sizeList;
     }
