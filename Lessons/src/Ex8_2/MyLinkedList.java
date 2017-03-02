@@ -317,7 +317,8 @@ public class MyLinkedList implements List{
 
     @Override
     public void clear() {
-        first.setNext(null);
+        //first.setNext(null);
+        first = null;
         last = first;
         this.sizeChanged = true;
         this.sizeList = 0;

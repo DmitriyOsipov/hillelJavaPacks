@@ -13,16 +13,23 @@ public class Demo {
         String[] els2 = new String[]{"gh", "kl", "ab", "de", "ck", "fh"};
         System.out.println("Is 1-st empty ? " + list1.isEmpty());
         System.out.println("Add elements");
-        for (String s : els){
-            list1.add(s);
-        }
 
-        for (String s: els2){
-            list2.add(s);
-        }
+        Demo.fillList(els, list1);
+        Demo.fillList(els2, list2);
+
         System.out.println(list1.toString());
+        System.out.println();
         System.out.println("Is 1-st empty? " + list1.isEmpty());
-        System.out.println(list2.toString());
+        System.out.println("Clear list1.");
+        list1.clear();
+        System.out.println("List 1 cleared. Is it empty? - " + list1.isEmpty());
+        System.out.println("List1: " + list1);
+        System.out.println();
+        System.out.println("Fill it again.");
+        Demo.fillList(els, list1);
+        System.out.println("List1: " + list1);
+
+        System.out.println("List2: " + list2);
 
         System.out.println();
         System.out.println("Size 1: " + list1.size());
@@ -165,5 +172,11 @@ public class Demo {
         System.out.println();
 
 
+    }
+
+    public static void fillList(Object[] objects, MyLinkedList list){
+        for (Object object : objects){
+            list.add(object);
+        }
     }
 }
