@@ -381,13 +381,24 @@ public class MyLinkedList implements List{
     @Override
     public Object remove(int index) {
         Object prevVal = null;
+        if ((index<0)||(index>=size())){
+            throw new IndexOutOfBoundsException();
+        }
         if (index==0){
-            first = first.getNext();
+            prevVal = first.getValue();
+            first = (this.isEmpty())? null:first.getNext();
         }
         else {
             LinkedListElement previous = this.getElement(index - 1);
-            prevVal = previous.getValue();
-            previous.setNext(this.getElement(index + 1));
+            //prevVal = previous.getValue();
+            prevVal = previous.getNext().getValue();
+            if (previous.getNext() == last){
+                previous.setNext(null);
+                last = previous;
+            }
+            else {
+                previous.setNext(this.getElement(index + 1));
+            }
         }
         return prevVal;
     }
