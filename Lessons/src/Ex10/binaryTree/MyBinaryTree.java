@@ -1,15 +1,14 @@
 package Ex10.binaryTree;
 
-import java.util.Comparator;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Stack;
-import java.lang.Enum;
 
 public class MyBinaryTree implements Iterable{
     private Node root;
-    private ITERATOR_KIND iteratorKind = ITERATOR_KIND.PREFIX;
+    private Iterator_Kind iteratorKind = Iterator_Kind.PREFIX;
 
-    enum ITERATOR_KIND {INFIX, POSTFIX, PREFIX};
+    enum Iterator_Kind {INFIX, POSTFIX, PREFIX, HORIZONTAL};
 
     public MyBinaryTree(){}
 
@@ -20,12 +19,22 @@ public class MyBinaryTree implements Iterable{
         return root==null;
     }
 
-    public void setIteratorKind(ITERATOR_KIND iteratorKind) {
+    public void setIteratorKind(Iterator_Kind iteratorKind) {
         this.iteratorKind = iteratorKind;
     }
 
     public void clear(){
         root=null;
+    }
+
+    public int size(){
+        int count = 0;
+        if (!isEmpty()){
+            for(Object data:this){
+                count++;
+            }
+        }
+        return count;
     }
 
     @Override
@@ -107,11 +116,38 @@ public class MyBinaryTree implements Iterable{
         return nodeResult;
     }
 
+    private Node getParent(Node currentNode){
+        IteratorNode iterator = new IteratorNode();
+        Node current;
+        while (iterator.hasNext()){
+            current = iterator.next();
+            if ((current.getRight()==currentNode)||(current.getLeft()==currentNode)){
+                return current;
+            }
+        }
+        return null;
+    }
+
     public boolean remove(Object object){
         boolean result = false;
-
         Node nodeToDelete = this.getNode(root, object);
         if (nodeToDelete!=null){
+            Node parent = this.getParent(nodeToDelete);
+            boolean hasLeftChildren = (nodeToDelete.getLeft()!=null);
+            boolean hasRightChildren = (nodeToDelete.getRight()!=null);
+
+            if (!hasLeftChildren && !hasRightChildren){
+                replaceNode(parent, nodeToDelete, null);
+            }
+            else if (!hasLeftChildren && hasRightChildren){
+                replaceNode(parent, nodeToDelete, nodeToDelete.getRight());
+            }
+            else if (hasLeftChildren && !hasRightChildren){
+                replaceNode(parent, nodeToDelete, nodeToDelete.getLeft());
+            }
+            else {
+                removeWithBothChildren(parent, nodeToDelete);
+            }
 
             result = true;
         }
@@ -119,6 +155,28 @@ public class MyBinaryTree implements Iterable{
         return result;
     }
 
+    private void replaceNode(Node parent, Node current, Node newNode){
+        if (parent.getLeft()==current){
+            parent.setLeft(newNode);
+        }
+        else {
+            parent.setRight(newNode);
+        }
+
+    }
+
+    private void removeWithBothChildren(Node parent, Node toDelete){
+        Node cur = toDelete.getLeft();
+        while (cur.getRight()!=null){
+            cur = cur.getRight();
+        }
+        if (cur!=toDelete.getLeft()){
+            getParent(cur).setRight(cur.getLeft());
+            cur.setLeft(toDelete.getLeft());
+        }
+        cur.setRight(toDelete.getRight());
+        replaceNode(parent, toDelete, cur);
+    }
     private Iterator createIterator(){
         Iterator iterator;
         switch (iteratorKind){
@@ -127,6 +185,9 @@ public class MyBinaryTree implements Iterable{
             }break;
             case POSTFIX:{
                 iterator = new IteratorPostfix();
+            }break;
+            case HORIZONTAL:{
+                iterator = new IteratorHorizontal();
             }break;
             default:{
                 iterator = new IteratorPrefix();
@@ -142,6 +203,42 @@ public class MyBinaryTree implements Iterable{
 
 
 
+    private class IteratorNode implements Iterator<Node>{
+        Stack<Node> nodeStack;
+        Node current;
+
+        private IteratorNode(){
+            nodeStack = new Stack<>();
+            current = root;
+            if (current==null){
+                return;
+            }
+            else {
+                nodeStack.push(null);
+            }
+        }
+
+        @Override
+        public boolean hasNext() {
+            return current!=null;
+        }
+
+        @Override
+        public Node next() {
+            Node value = current;
+
+            if (current.getRight()!=null){
+                nodeStack.push(current.getRight());
+            }
+            if (current.getLeft()!=null){
+                current = current.getLeft();
+            }
+            else {
+                current = nodeStack.pop();
+            }
+            return value;
+        }
+    }
 
     private class IteratorPrefix implements Iterator{
         Stack<Node> nodeStack;
@@ -271,6 +368,43 @@ public class MyBinaryTree implements Iterable{
                 current = nodeStack.pop();
             }
 
+            return value;
+        }
+    }
+
+    private class IteratorHorizontal implements Iterator{
+        private Node current;
+        private LinkedList<Node> nodes;
+        private IteratorHorizontal(){
+            nodes = new LinkedList<>();
+            current = root;
+            if (current==null){
+                return;
+            }
+        }
+
+        @Override
+        public boolean hasNext() {
+            return current!=null;
+        }
+
+        @Override
+        public Object next() {
+            Object value = current.getData();
+
+            if (current.getLeft() != null) {
+                nodes.addLast(current.getLeft());
+            }
+            if (current.getRight() != null) {
+                nodes.addLast(current.getRight());
+            }
+            if (!nodes.isEmpty()) {
+                current = nodes.getFirst();
+                nodes.removeFirst();
+            }
+            else {
+                current = null;
+            }
             return value;
         }
     }
