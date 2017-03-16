@@ -1,9 +1,9 @@
 package Ex10.ticTacToeGame;
 
-public class Run {
+public class GameLogicWork {
     private GameLogic gameLogic;
 
-    public Run(){
+    public GameLogicWork(){
         gameLogic = new GameLogic();
     }
 
@@ -12,7 +12,7 @@ public class Run {
 
         gameLogic.makeMove(playerMove);
 
-        if (!gameLogic.isADraw()){
+        if (!gameLogic.isADraw() && !gameLogic.isPlayerWin()){
             aiMove = gameLogic.aiMove();
         }
 
@@ -28,7 +28,7 @@ public class Run {
             }break;
             default:{
                 gameLogic.setAiGameStrategy(new RandomAiGameStrategy());
-                strategyName = IfElseAiGameStrategy.class.getName();
+                strategyName = RandomAiGameStrategy.class.getName();
             };
         }
         return strategyName;

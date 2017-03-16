@@ -13,9 +13,9 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Gui extends Application{
+public class RunGui extends Application{
     List<Button> buttons;
-    Run runGame = new Run();
+    GameLogicWork gameLogicWorkGame = new GameLogicWork();
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -49,7 +49,7 @@ public class Gui extends Application{
         comboBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                String aiStrategy = runGame.changeAiStrategy(newValue.intValue());
+                String aiStrategy = gameLogicWorkGame.changeAiStrategy(newValue.intValue());
                 showMessage(aiStrategy);
             }
         });
@@ -100,7 +100,7 @@ public class Gui extends Application{
     }
 
     private void checkResult() {
-        switch (runGame.checkResult()){
+        switch (gameLogicWorkGame.checkResult()){
             case Integer.MAX_VALUE: {
                 showEndMessage("You win!");
             }break;
@@ -136,7 +136,7 @@ public class Gui extends Application{
     }
 
     private void gameTurn(int playerPosition){
-        int result = runGame.makeMove(playerPosition);
+        int result = gameLogicWorkGame.makeMove(playerPosition);
         if (result>=0 && result<buttons.size()) {
             changeButton(result, "O", "green");
         }
