@@ -5,11 +5,16 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class MyHashMap {
-    private final int PRIMARY_CAPACITY = 8;
-    private int capacity = PRIMARY_CAPACITY;
+    private static final int PRIMARY_CAPACITY = 8;
+    private int capacity;
     private MyMapInOutable[] table;
 
     public MyHashMap() {
+        this(PRIMARY_CAPACITY);
+    }
+
+    public MyHashMap(int capacity) {
+        this.capacity = capacity;
         table = new Bucket[capacity];
 
         for (int i=0; i<capacity; i++){
