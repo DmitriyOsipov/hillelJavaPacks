@@ -165,13 +165,16 @@ public class MyTreeMap implements Iterable{
     }
 
     private void replaceNode(Node parent, Node current, Node newNode){
-        if (parent.getLeft()==current){
-            parent.setLeft(newNode);
+        if (parent!=null) {
+            if (parent.getLeft() == current) {
+                parent.setLeft(newNode);
+            } else {
+                parent.setRight(newNode);
+            }
         }
         else {
-            parent.setRight(newNode);
+            root = newNode;
         }
-
     }
 
     private void removeWithBothChildren(Node parent, Node toDelete){

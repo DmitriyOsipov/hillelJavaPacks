@@ -3,7 +3,7 @@ package Ex11.treeMap;
 
 import java.util.Iterator;
 
-public class Demo {
+public class MyTreeMapDemo {
     public static void main(String[] args) {
         MyTreeMap tree = new MyTreeMap();
         tree.add(50, 50);
@@ -54,8 +54,8 @@ public class Demo {
         System.out.println(tree);
         System.out.println("Size " + tree.size());
         System.out.println();
-        System.out.println("Remove 1");
-        tree.remove(1);
+        System.out.println("Remove 50");
+        tree.remove(50);
         System.out.println(tree);
         System.out.println("Size " + tree.size());
 
