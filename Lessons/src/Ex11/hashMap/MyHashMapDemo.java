@@ -1,9 +1,7 @@
 package Ex11.hashMap;
 
-/**
- * Created by Dreamer on 19.03.2017.
- */
-public class Demo {
+
+public class MyHashMapDemo {
     public static void main(String[] args) {
         MyHashMap hashMap = new MyHashMap();
         hashMap.add(50, 50);
@@ -35,7 +33,6 @@ public class Demo {
         hashMap.add(77, 77);
         hashMap.add(76, 76);
 
-        //tree.setIteratorKind(MyBinaryTree.Iterator_Kind.HORIZONTAL);
         System.out.println(hashMap);
         System.out.println("Size " + hashMap.size());
         System.out.println();
