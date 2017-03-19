@@ -13,7 +13,7 @@ public class StudentsData {
         Scanner scanner = new Scanner(System.in);
         do {
             System.out.println("---------------------------------------");
-            System.out.println("1 - Demo");
+            System.out.println("1 - MyTreeMapDemo");
             System.out.println("2 - Add element");
             System.out.println("3 - Delete element");
             System.out.println("4 - Sort");
