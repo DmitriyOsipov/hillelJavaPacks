@@ -14,6 +14,12 @@ public class MyHashMapChangedDemo {
         MyHashMap hashMapTree = new MyHashMap(getTableTrees(8));
         addElements(hashMapTree);
         demonstrate(hashMapTree);
+
+        System.out.println();
+        System.out.println("----------------------");
+        System.out.println("Changed capacity to 16");
+        hashMap.setCapacity(16);
+        System.out.println(hashMap);
     }
 
     public static void addElements(MyHashMap hashMap) {

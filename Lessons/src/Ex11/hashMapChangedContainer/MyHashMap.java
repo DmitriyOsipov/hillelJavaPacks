@@ -76,6 +76,17 @@ public class MyHashMap {
     private MyMapInOutable[] changeTableCapacity(MyMapInOutable[] oldTable, int newCapacity){
         int oldCapacity = oldTable.length;
         MyMapInOutable[] newTable = new MyMapInOutable[newCapacity];
+        Class type = oldTable[0].getClass();
+
+        for (int i=0; i<newCapacity; i++){
+            try {
+                newTable[i] = (MyMapInOutable) type.newInstance();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
 
         for (int i=0; i<oldCapacity; i++){
             replaceElementsToNewTable(newTable, oldTable[i]);
