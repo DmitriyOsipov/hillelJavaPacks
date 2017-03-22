@@ -3,140 +3,170 @@ package Ex12.myHashMaxExtended;
 
 import java.util.*;
 
-public class MyHashMap implements Map {
-    private static final int PRIMARY_CAPACITY = 16;
+public class MyHashMap implements Map{
+    private final int PRIMARY_CAPACITY = 16;
     private int capacity = PRIMARY_CAPACITY;
-    private Bucket[] table = new Bucket[capacity];
-    private int tableSize = 0;
+    private int size = 0;
+    private List<Entry>[] table = new LinkedList[capacity];
 
-    public MyHashMap() {
-        this(PRIMARY_CAPACITY);
+    private int calculateIndex(Object key){
+        return  Math.abs(key.hashCode()) % capacity;
     }
 
-    public MyHashMap(int capacity) {
-        this.capacity = capacity;
-        table = new Bucket[capacity];
-
-        for (int i = 0; i < capacity; i++) {
-            table[i] = new Bucket();
-        }
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder("{\n");
-
-        for (Bucket bucket : table) {
-            builder.append("  ");
-            builder.append(bucket.toString());
-            builder.append(";\n");
-        }
-        builder.append("}");
-        return builder.toString().trim();
-    }
-
-    private int calculateIndex(Object key) {
-        int result = -1;
-        result = Math.abs(key.hashCode()) % capacity;
-        return result;
-    }
-
-    @Override
-    public int size() {
-        return tableSize;
-    }
-
-    public int getCapacity() {
-        return capacity;
-    }
-
-    private boolean add(Object key, Object value) {
-        int index = this.calculateIndex(key);
-        boolean result = table[index].add(key, value);
-        if (result) {
-            tableSize++;
-        }
-        return result;
-    }
-
-    @Override
-    public Object get(Object key) {
-        int index = this.calculateIndex(key);
-        Object result = table[index].get(key);
-        return result;
-    }
-
-    private boolean removeElement(Object key) {
-        int index = this.calculateIndex(key);
-        boolean result = table[index].remove(key);
-        if (result) {
-            tableSize--;
-        }
-        return result;
-    }
-
-    public void setCapacity(int capacity) {
-        table = changeTableCapacity(table, capacity);
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return tableSize==0;
-    }
-
-    @Override
-    public boolean containsKey(Object key) {
-        int index = this.calculateIndex(key);
+    private boolean addEntry(Object key, Object value){
+        int index = calculateIndex(key);
+        Entry newEntry = new Entry(key, value);
         boolean result = false;
-        Iterator<Bucket.Entity> iterator = table[index].iteratorMapElements();
-        while (iterator.hasNext() && !result){
-            result = iterator.next().getKey().equals(key);
+
+        if (table[index] == null){
+            table[index] = new LinkedList<Entry>();
+        }
+        if (!table[index].contains(newEntry)){
+            table[index].add(newEntry);
+        }
+        else {
+            int existedIndex = table[index].indexOf(newEntry);
+            table[index].get(existedIndex).setValue(value);
+        }
+        result = true;
+        if (result){
+            size++;
         }
         return result;
     }
 
-    @Override
-    public boolean containsValue(Object value) {
-        boolean result = false;
-        for (int i=0; i< table.length && !result; i++){
-            Iterator<Bucket.Entity> iterator = table[i].iteratorMapElements();
-            while (iterator.hasNext() && !result){
-                result = iterator.next().getData().equals(value);
+    private Entry getEntry(Object key){
+        int bucketIndex = calculateIndex(key);
+        int index = -1;
+        if (table[bucketIndex]!=null) {
+            index = table[bucketIndex].indexOf(new Entry(key, null));
+        }
+        return (index>-1) ? table[bucketIndex].get(index) : null;
+    }
+
+    private Entry removeEntry(Object key){
+        Entry result = null;
+        int bucketIndex = calculateIndex(key);
+        int index = table[bucketIndex].indexOf(new Entry(key, null));
+        if (index>-1){
+            result = table[bucketIndex].remove(index);
+            if (result!=null){
+                size--;
             }
         }
         return result;
     }
 
+    private List<Entry>[] changeCapacity(List<Entry>[] oldTable, int newCapacity){
+        List<Entry>[] newTable = new List[newCapacity];
+        Set<Map.Entry> entrySet = this.entrySet();
+        //int oldSize = size;
+        //int oldCapacity = capacity;
+        this.table = newTable;
+        this.capacity = newCapacity;
+        this.size = 0;
+
+        for (Map.Entry entry : entrySet){
+            this.addEntry(entry.getKey(), entry.getValue());
+        }
+        return oldTable;
+    }
+
+    public void setCapacity(int capacity) {
+        changeCapacity(this.table, capacity);
+    }
+
+    @Override
+    public int size() {
+        return size;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return size==0;
+    }
+
+    @Override
+    public boolean containsKey(Object key) {
+        int bucketIndex = calculateIndex(key);
+        if (table[bucketIndex]!=null) {
+            return table[bucketIndex].contains(new Entry(key, null));
+        }
+        return false;
+    }
+
+    @Override
+    public boolean containsValue(Object value) {
+        for(int i=0; i<capacity; i++){
+            if (table[i]!=null) {
+                for (Entry entry : table[i]) {
+                    if (entry.getValue().equals(value)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public Object get(Object key) {
+        Entry entry = this.getEntry(key);
+        return (entry!=null) ? entry.getValue() : null;
+    }
+
     @Override
     public Object put(Object key, Object value) {
-        Object previousValue = this.get(key);
-        this.add(key, value);
-        return previousValue;
+        Entry entry = this.getEntry(key);
+        this.addEntry(key, value);
+        return (entry!=null)? entry.getValue() : null;
     }
+
+    @Override
+    public Object remove(Object key) {
+        Entry removed = this.removeEntry(key);
+        return (removed!=null) ? removed.getValue() : null;
+    }
+
 
     @Override
     public void putAll(Map m) {
         for (Object entry: m.entrySet()){
             Entry obj = (Entry)entry;
-            this.add(obj.getKey(), obj.getValue());
+            this.addEntry(obj.getKey(), obj.getValue());
         }
     }
 
     @Override
     public void clear() {
-        this.tableSize = 0;
+        this.size = 0;
         for (int i=0; i<capacity; i++){
-            table[i] = new Bucket();
+            table[i] = null;
         }
     }
+
 
     @Override
     public Set keySet() {
         Set set = new HashSet();
         for (int i=0; i<capacity; i++){
-            Iterator<Bucket.Entity> iterator = table[i].iteratorMapElements();
-            while (iterator.hasNext()){
-                set.add(iterator.next().getKey());
+            if (table[i]!=null) {
+                for (Entry entry : table[i]) {
+                    set.add(entry.getKey());
+                }
+            }
+        }
+        return set;
+    }
+
+    @Override
+    public Set<Map.Entry> entrySet() {
+        Set<Map.Entry> set = new HashSet<>();
+        for (int i=0; i<capacity; i++){
+            if (table[i]!=null) {
+                for (Entry entry : table[i]) {
+                    set.add(entry);
+                }
             }
         }
         return set;
@@ -144,182 +174,72 @@ public class MyHashMap implements Map {
 
     @Override
     public Collection values() {
-        Collection collection = new LinkedList();
+        Collection vCollection = new LinkedList();
         for (int i=0; i<capacity; i++){
-            Iterator<Bucket.Entity> iterator = table[i].iteratorMapElements();
-            while (iterator.hasNext()){
-                collection.add(iterator.next().getKey());
+            if (table[i]!=null) {
+                for (Entry entry : table[i]) {
+                    vCollection.add(entry.getValue());
+                }
             }
         }
-        return collection;
+        return vCollection;
     }
 
     @Override
-    public Set<Entry> entrySet() {
-        Set set = new HashSet();
+    public String toString() {
+        StringBuilder builder = new StringBuilder("{");
         for (int i=0; i<capacity; i++){
-            Iterator<Bucket.Entity> iterator = table[i].iteratorMapElements();
-            while (iterator.hasNext()){
-                set.add(iterator.next());
-            }
+            builder.append("\n\t");
+            builder.append(table[i]);
+            builder.append(',');
         }
-        return set;
+        builder.deleteCharAt(builder.length()-1);
+        builder.append("\n}");
+        return builder.toString();
     }
 
-    @Override
-    public Object remove(Object key) {
-        Object value = this.get(key);
-        this.removeElement(key);
-        return value;
-    }
+    private class Entry implements Map.Entry{
+        private final Object key;
+        private Object value;
 
-    private Bucket[] changeTableCapacity(Bucket[] oldTable, int newCapacity) {
-        this.capacity = newCapacity;
-        int oldCapacity = oldTable.length;
-        Bucket[] newTable = new Bucket[newCapacity];
-
-        Class type = oldTable[0].getClass();
-        for (int i = 0; i < newCapacity; i++) {
-            try {
-                newTable[i] = (Bucket) type.newInstance();
-            } catch (ReflectiveOperationException e) {
-                e.printStackTrace();
-                this.capacity = oldCapacity;
-                return oldTable;
-            }
+        public Entry(Object key, Object value) {
+            this.key = key;
+            this.value = value;
         }
 
-        for (int i = 0; i < oldCapacity; i++) {
-            replaceElementsToNewTable(newTable, oldTable[i]);
-        }
-        return newTable;
-    }
-
-    private void replaceElementsToNewTable(Bucket[] elementsTable, Bucket container) {
-        Iterator<Bucket.Entity> iterator = container.iteratorMapElements();
-        while (iterator.hasNext()) {
-            Bucket.Entity element = iterator.next();
-            int index = this.calculateIndex(element.getKey());
-            elementsTable[index].add(element.getKey(), element.getData());
-        }
-    }
-
-    private class Bucket {
-        List<Entity> cell = new LinkedList<>();
-
-        private Bucket() {
+        public Object getKey() {
+            return key;
         }
 
-
-        public Object get(Object key) {
-            for (Entity element : cell) {
-                if (element.getKey().equals(key)) {
-                    return element.getData();
-                }
-            }
-            return null;
+        public Object getValue() {
+            return value;
         }
 
-        private Entity getElement(Object key) {
-            for (Entity element : cell) {
-                if (element.getKey().equals(key)) {
-                    return element;
-                }
-            }
-            return null;
+        public Object setValue(Object value) {
+            Object oldValue = this.value;
+            this.value = value;
+            return oldValue;
         }
 
-        private boolean setElement(Object key, Object value) {
-            for (Entity element : cell) {
-                if (element.getKey().equals(key)) {
-                    element.setData(value);
-                    return true;
-                }
-            }
-            return false;
+        @Override
+        public boolean equals(Object object) {
+            if (this == object) return true;
+            if (object == null || getClass() != object.getClass()) return false;
+
+            Entry entry = (Entry) object;
+
+            return key != null ? key.equals(entry.key) : entry.key == null;
         }
 
-        public boolean add(Object key, Object value) {
-            boolean result = setElement(key, value);
-            if (!result) {
-                Entity element = new Entity(key, value);
-                cell.add(element);
-                result = true;
-            }
-
-            return result;
+        @Override
+        public int hashCode() {
+            return key != null ? key.hashCode() : 0;
         }
 
-
-        public boolean remove(Object key) {
-            Entity element = getElement(key);
-            if (element != null) {
-                cell.remove(element);
-                return true;
-            }
-            return false;
-        }
-
-
-        public Iterator<Entity> iteratorMapElements() {
-            return new Iterator<Entity>() {
-                int current = 0;
-                int maxInd = cell.size();
-
-                @Override
-                public boolean hasNext() {
-                    return (current < maxInd);
-                }
-
-                @Override
-                public Entity next() {
-                    Entity element = cell.get(current);
-                    current++;
-                    return element;
-                }
-            };
-        }
-
-        private class Entity {
-            private final Object key;
-            private Object data;
-
-            public Entity(Object key, Object data) {
-                this.key = key;
-                this.data = data;
-            }
-
-            public Object getKey() {
-                return key;
-            }
-
-            public Object getData() {
-                return data;
-            }
-
-            public void setData(Object data) {
-                this.data = data;
-            }
-
-            @Override
-            public boolean equals(Object object) {
-                if (this == object) return true;
-                if (object == null || getClass() != object.getClass()) return false;
-
-                Entity entity = (Entity) object;
-
-                return key.equals(entity.key);
-            }
-
-            @Override
-            public int hashCode() {
-                return key.hashCode();
-            }
-
-            @Override
-            public String toString() {
-                return "{" + "key=" + key + ", data=" + data + '}';
-            }
+        @Override
+        public String toString() {
+            //return '{' + "key=" + key + ", value=" + value + '}';
+            return "{\"" + key + "\" -> " + value + '}';
         }
     }
 }
