@@ -77,9 +77,9 @@ public class MyHashMap<K, V> implements Map<K, V>{
 
     @Override
     public boolean containsValue(Object value) {
-        for(List<Entry<K,V>> list: table){
-            if (list!=null) {
-                for (Entry<K, V> entry : list) {
+        for(int i=0; i<capacity; i++){
+            if (table[i]!=null) {
+                for (Entry<K, V> entry : table[i]) {
                     if (entry.getValue().equals(value)) {
                         return true;
                     }
@@ -131,8 +131,10 @@ public class MyHashMap<K, V> implements Map<K, V>{
     public Set<K> keySet() {
         Set<K> set = new HashSet<K>();
         for (int i=0; i<capacity; i++){
-            for (Entry<K, V> entry : table[i]){
-                set.add(entry.getKey());
+            if (table[i]!=null) {
+                for (Entry<K, V> entry : table[i]) {
+                    set.add(entry.getKey());
+                }
             }
         }
         return set;
@@ -142,8 +144,10 @@ public class MyHashMap<K, V> implements Map<K, V>{
     public Set<Map.Entry<K, V>> entrySet() {
         Set<Map.Entry<K, V>> set = new HashSet<>();
         for (int i=0; i<capacity; i++){
-            for (Entry<K, V> entry : table[i]){
-                set.add(entry);
+            if (table[i]!=null) {
+                for (Entry<K, V> entry : table[i]) {
+                    set.add(entry);
+                }
             }
         }
         return set;
@@ -153,8 +157,10 @@ public class MyHashMap<K, V> implements Map<K, V>{
     public Collection<V> values() {
         Collection<V> vCollection = new LinkedList<V>();
         for (int i=0; i<capacity; i++){
-            for (Entry<K, V> entry : table[i]){
-                vCollection.add(entry.getValue());
+            if (table[i]!=null) {
+                for (Entry<K, V> entry : table[i]) {
+                    vCollection.add(entry.getValue());
+                }
             }
         }
         return vCollection;
