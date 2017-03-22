@@ -56,6 +56,25 @@ public class MyHashMap<K, V> implements Map<K, V>{
         return result;
     }
 
+    private List<Entry<K,V>>[] changeCapacity(List<Entry<K,V>>[] oldTable, int newCapacity){
+        List<Entry<K,V>>[] newTable = new List[newCapacity];
+        Set<Map.Entry<K,V>> entrySet = this.entrySet();
+        //int oldSize = size;
+        //int oldCapacity = capacity;
+        this.table = newTable;
+        this.capacity = newCapacity;
+        this.size = 0;
+
+        for (Map.Entry<K,V> entry : entrySet){
+            this.addEntry(entry.getKey(), entry.getValue());
+        }
+        return oldTable;
+    }
+
+    public void setCapacity(int capacity) {
+        changeCapacity(this.table, capacity);
+    }
+
     @Override
     public int size() {
         return size;
@@ -219,7 +238,8 @@ public class MyHashMap<K, V> implements Map<K, V>{
 
         @Override
         public String toString() {
-            return '{' + "key=" + key + ", value=" + value + '}';
+            //return '{' + "key=" + key + ", value=" + value + '}';
+            return "{\"" + key + "\" -> " + value + '}';
         }
     }
 }

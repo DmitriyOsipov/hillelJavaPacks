@@ -66,6 +66,20 @@ public class MyHashMapGenericsDemo {
         System.out.println("Does hashMap contain entry with value 80? " + hashMap.containsValue(80));
         System.out.println("Does hashMap contain entry with value 8? " + hashMap.containsValue(8));
 
+     System.out.println("Size of keySet: " + hashMap.keySet().size());
+     System.out.println("Size of values collection: " + hashMap.values().size());
+     System.out.println("Size of entry set: " + hashMap.entrySet().size());
+     System.out.println("Is hashMap empty? " + hashMap.isEmpty());
+
+     System.out.println("Change capacity to 8: ");
+     hashMap.setCapacity(8);
+     System.out.println(hashMap);
+
+     System.out.println("Clear hashMap");
+     hashMap.clear();
+     System.out.println(hashMap);
+     System.out.println("Is it empty? " + hashMap.isEmpty());
+
 
     }
 }
