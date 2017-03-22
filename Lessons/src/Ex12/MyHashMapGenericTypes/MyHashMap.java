@@ -36,7 +36,10 @@ public class MyHashMap<K, V> implements Map<K, V>{
 
     private Entry<K, V> getEntry(K key){
         int bucketIndex = calculateIndex(key);
-        int index = table[bucketIndex].indexOf(new Entry<K, V>(key, null));
+        int index = -1;
+        if (table[bucketIndex]!=null) {
+            index = table[bucketIndex].indexOf(new Entry<K, V>(key, null));
+        }
         return (index>-1) ? table[bucketIndex].get(index) : null;
     }
 
@@ -66,15 +69,20 @@ public class MyHashMap<K, V> implements Map<K, V>{
     @Override
     public boolean containsKey(Object key) {
         int bucketIndex = calculateIndex((K)key);
-        return table[bucketIndex].contains(new Entry(key, null));
+        if (table[bucketIndex]!=null) {
+            return table[bucketIndex].contains(new Entry(key, null));
+        }
+        return false;
     }
 
     @Override
     public boolean containsValue(Object value) {
         for(List<Entry<K,V>> list: table){
-            for (Entry<K,V> entry : list){
-                if (entry.getValue().equals(value)){
-                    return true;
+            if (list!=null) {
+                for (Entry<K, V> entry : list) {
+                    if (entry.getValue().equals(value)) {
+                        return true;
+                    }
                 }
             }
         }
@@ -152,7 +160,18 @@ public class MyHashMap<K, V> implements Map<K, V>{
         return vCollection;
     }
 
-
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder("{");
+        for (int i=0; i<capacity; i++){
+            builder.append("\n\t");
+            builder.append(table[i]);
+            builder.append(',');
+        }
+        builder.deleteCharAt(builder.length()-1);
+        builder.append("\n}");
+        return builder.toString();
+    }
 
     private class Entry<K, V> implements Map.Entry<K, V>{
         private final K key;
