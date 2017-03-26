@@ -3,12 +3,21 @@ package Ex12.MyHashMapGenericTypes;
 import java.util.*;
 
 public class MyHashMap<K, V> implements Map<K, V>{
-    private final int PRIMARY_CAPACITY = 16;
-    private int capacity = PRIMARY_CAPACITY;
+    private final static int PRIMARY_CAPACITY = 16;
+    private int capacity;
     private int size = 0;
-    private List<Entry<K,V>>[] table = new LinkedList[capacity];
+    private List<Entry<K,V>>[] table;
 
-    private int calculateIndex(K key){
+    public MyHashMap() {
+       this(PRIMARY_CAPACITY);
+    }
+
+    public MyHashMap(int capacity) {
+        this.capacity = capacity;
+        table = new LinkedList[capacity];
+    }
+
+    private int calculateIndex(Object key){
         return  Math.abs(key.hashCode()) % capacity;
     }
 
@@ -17,36 +26,41 @@ public class MyHashMap<K, V> implements Map<K, V>{
         Entry<K, V> newEntry = new Entry<>(key, value);
         boolean result = false;
 
-        if (table[index] == null){
-            table[index] = new LinkedList<Entry<K, V>>();
+        try {
+            if (table[index] == null) {
+                table[index] = new LinkedList<Entry<K, V>>();
+            }
+            if (!table[index].contains(newEntry)) {
+                table[index].add(newEntry);
+            } else {
+                int existedIndex = table[index].indexOf(newEntry);
+                table[index].get(existedIndex).setValue(value);
+            }
+            result = true;
         }
-        if (!table[index].contains(newEntry)){
-            table[index].add(newEntry);
-        }
-        else {
-            int existedIndex = table[index].indexOf(newEntry);
-            table[index].get(existedIndex).setValue(value);
-        }
-        result = true;
+        catch (Exception e){}
         if (result){
             size++;
         }
         return result;
     }
 
-    private Entry<K, V> getEntry(K key){
+    private Entry<K, V> getEntry(Object key){
         int bucketIndex = calculateIndex(key);
+        K castedKey = (K)key;
         int index = -1;
         if (table[bucketIndex]!=null) {
-            index = table[bucketIndex].indexOf(new Entry<K, V>(key, null));
+            index = table[bucketIndex].indexOf(new Entry<K, V>(castedKey, null));
         }
         return (index>-1) ? table[bucketIndex].get(index) : null;
     }
 
-    private Entry removeEntry(K key){
-        Entry result = null;
+    private Entry<K,V> removeEntry(Object key){
+        Entry<K,V> result = null;
+        K castedKey = (K)key;
         int bucketIndex = calculateIndex(key);
-        int index = table[bucketIndex].indexOf(new Entry<>(key, null));
+        Entry<K,V> checkedEntry = new Entry<>(castedKey, null);
+        int index = table[bucketIndex].indexOf(checkedEntry);
         if (index>-1){
             result = table[bucketIndex].remove(index);
             if (result!=null){
@@ -59,8 +73,6 @@ public class MyHashMap<K, V> implements Map<K, V>{
     private List<Entry<K,V>>[] changeCapacity(List<Entry<K,V>>[] oldTable, int newCapacity){
         List<Entry<K,V>>[] newTable = new List[newCapacity];
         Set<Map.Entry<K,V>> entrySet = this.entrySet();
-        //int oldSize = size;
-        //int oldCapacity = capacity;
         this.table = newTable;
         this.capacity = newCapacity;
         this.size = 0;
@@ -85,11 +97,26 @@ public class MyHashMap<K, V> implements Map<K, V>{
         return size==0;
     }
 
+    /*
     @Override
     public boolean containsKey(Object key) {
-        int bucketIndex = calculateIndex((K)key);
+        int bucketIndex = calculateIndex(key);
+        K castedKey = (K)key;
         if (table[bucketIndex]!=null) {
-            return table[bucketIndex].contains(new Entry(key, null));
+            return table[bucketIndex].contains(new Entry(castedKey, null));
+        }
+        return false;
+    }//*/
+
+    @Override
+    public boolean containsKey(Object key) {
+        int bucketIndex = calculateIndex(key);
+        if (table[bucketIndex] != null){
+            for (Entry<K,V> entry: table[bucketIndex]){
+                if (entry.getKey().equals(key)){
+                    return true;
+                }
+            }
         }
         return false;
     }
@@ -110,8 +137,7 @@ public class MyHashMap<K, V> implements Map<K, V>{
 
     @Override
     public V get(Object key) {
-        K castedKey = (K)key;
-        Entry<K, V> entry = this.getEntry(castedKey);
+        Entry<K, V> entry = this.getEntry(key);
         return (entry!=null) ? entry.getValue() : null;
     }
 
@@ -124,16 +150,14 @@ public class MyHashMap<K, V> implements Map<K, V>{
 
     @Override
     public V remove(Object key) {
-        K castedKey = (K)key;
-        Entry<K, V> removed = this.removeEntry(castedKey);
+        Entry<K, V> removed = this.removeEntry(key);
         return (removed!=null) ? removed.getValue() : null;
     }
 
     @Override
     public void putAll(Map<? extends K, ? extends V> m) {
-        for (Object entry: m.entrySet()){
-            Entry<K, V> obj = (Entry<K, V>)entry;
-            this.addEntry(obj.getKey(), obj.getValue());
+        for (Map.Entry<? extends K, ? extends V> entry: m.entrySet()){
+            this.addEntry(entry.getKey(), entry.getValue());
         }
     }
 
@@ -148,7 +172,7 @@ public class MyHashMap<K, V> implements Map<K, V>{
 
     @Override
     public Set<K> keySet() {
-        Set<K> set = new HashSet<K>();
+        Set<K> set = new HashSet<>();
         for (int i=0; i<capacity; i++){
             if (table[i]!=null) {
                 for (Entry<K, V> entry : table[i]) {
@@ -164,9 +188,12 @@ public class MyHashMap<K, V> implements Map<K, V>{
         Set<Map.Entry<K, V>> set = new HashSet<>();
         for (int i=0; i<capacity; i++){
             if (table[i]!=null) {
+                /*
                 for (Entry<K, V> entry : table[i]) {
                     set.add(entry);
                 }
+                //*/
+                set.addAll(table[i]);
             }
         }
         return set;
@@ -174,7 +201,7 @@ public class MyHashMap<K, V> implements Map<K, V>{
 
     @Override
     public Collection<V> values() {
-        Collection<V> vCollection = new LinkedList<V>();
+        Collection<V> vCollection = new LinkedList<>();
         for (int i=0; i<capacity; i++){
             if (table[i]!=null) {
                 for (Entry<K, V> entry : table[i]) {
@@ -202,7 +229,7 @@ public class MyHashMap<K, V> implements Map<K, V>{
         private final K key;
         private V value;
 
-        public Entry(K key, V value) {
+        private Entry(K key, V value) {
             this.key = key;
             this.value = value;
         }
@@ -238,7 +265,6 @@ public class MyHashMap<K, V> implements Map<K, V>{
 
         @Override
         public String toString() {
-            //return '{' + "key=" + key + ", value=" + value + '}';
             return "{\"" + key + "\" -> " + value + '}';
         }
     }
