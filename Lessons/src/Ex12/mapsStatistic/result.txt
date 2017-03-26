@@ -1,0 +1,35 @@
+Tree Map
+Adding
+Adding  took 1091.0 milliseconds.
+--------------------------------------
+Finding
+Finding  took 89.0 milliseconds.
+--------------------------------------
+Removing
+Removing  took 105.0 milliseconds.
+======================================
+
+Hash Map
+Adding
+Adding  took 42.0 milliseconds.
+--------------------------------------
+Finding
+Finding  took 454.0 milliseconds.
+--------------------------------------
+Removing
+Removing  took 22.0 milliseconds.
+======================================
+TOTAL:
+
+_____________________________________________
+|              |       TreeMap|       HashMap|
+|              |            ms|            ms|
+_____________________________________________
+|        Adding|        1091.0|          42.0|
+_____________________________________________
+|       Finding|          89.0|         454.0|
+_____________________________________________
+|      Removing|         105.0|          22.0|
+_____________________________________________
+
+Process finished with exit code 0
