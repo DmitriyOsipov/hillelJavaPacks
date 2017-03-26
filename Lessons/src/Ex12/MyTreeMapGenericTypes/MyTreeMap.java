@@ -45,7 +45,8 @@ public class MyTreeMap<K, V> implements Iterable, Map<K, V>{
         IteratorNode nodes = new IteratorNode();
         while (nodes.hasNext()){
             Node node = nodes.next();
-            builder.append(" \"" + node.getKey() + "\" -> ");
+            String line = " \"" + node.getKey() + "\" -> ";
+            builder.append(line);
             builder.append(node.getValue());
             builder.append(";");
         }
@@ -56,7 +57,7 @@ public class MyTreeMap<K, V> implements Iterable, Map<K, V>{
     public boolean add(K key, V object){
         boolean result = false;
 
-        Node<K, V> newNode = new Node<K,V>(key, object, null, null);
+        Node<K, V> newNode = new Node<>(key, object, null, null);
         if (this.isEmpty()){
             root = newNode;
         }
@@ -68,13 +69,13 @@ public class MyTreeMap<K, V> implements Iterable, Map<K, V>{
     }
 
     private void add(Node<K, V> thisNode, Node<K, V> newNode){
-        Comparable<K> thisObject = (Comparable<K>)thisNode.getKey();
-        Comparable<K> newObject = (Comparable<K>)newNode.getKey();
+        Comparable thisObject = (Comparable)thisNode.getKey();
+        Comparable newObject = (Comparable)newNode.getKey();
 
-        if (thisObject.compareTo((K) newObject)<0){
+        if (thisObject.compareTo(newObject)<0){
             addRight(thisNode, newNode);
         }
-        else if(thisObject.compareTo((K) newObject)>0){
+        else if(thisObject.compareTo(newObject)>0){
             addLeft(thisNode, newNode);
         }
         else {
@@ -99,18 +100,18 @@ public class MyTreeMap<K, V> implements Iterable, Map<K, V>{
         }
     }
 
-    private Node<K,V> getNode(Node<K,V> currentNode, K key){
+    private Node<K,V> getNode(Node<K,V> currentNode, Object key){
         Node<K,V> nodeResult = null;
         if (currentNode==null){
-            return nodeResult;
+            return null;
         }
-        Comparable<K> currentNodeKey = (Comparable<K>)currentNode.getKey();
-        Comparable<K> needed = (Comparable<K>)key;
+        Comparable currentNodeKey = (Comparable)currentNode.getKey();
+        Comparable needed = (Comparable)key;
 
-        if (currentNodeKey.compareTo((K)needed)==0){
+        if (currentNodeKey.compareTo(needed)==0){
             nodeResult = currentNode;
         }
-        else if (currentNodeKey.compareTo((K)needed)<0){
+        else if (currentNodeKey.compareTo(needed)<0){
             nodeResult = getNode(currentNode.getRight(), key);
         }
         else {
@@ -135,8 +136,7 @@ public class MyTreeMap<K, V> implements Iterable, Map<K, V>{
 
     @Override
     public V get(Object key) {
-        K castedKey = (K)key;
-        Node<K,V> gotNode = this.getNode(root, castedKey);
+        Node<K,V> gotNode = this.getNode(root, key);
         return (gotNode!=null) ? gotNode.getValue():null;
     }
 
@@ -149,15 +149,14 @@ public class MyTreeMap<K, V> implements Iterable, Map<K, V>{
 
     @Override
     public void putAll(Map<? extends K, ? extends V> m) {
-        for (Object entry: m.entrySet()){
-            Entry<K, V> obj = (Entry<K, V>)entry;
-            this.add(obj.getKey(), obj.getValue());
+        for (Map.Entry<? extends K, ? extends V> entry: m.entrySet()){
+            this.add(entry.getKey(), entry.getValue());
         }
     }
 
     @Override
     public Set<K> keySet() {
-        Set<K> keys = new HashSet<K>();
+        Set<K> keys = new HashSet<>();
         IteratorNode iteratorNode = new IteratorNode();
         while (iteratorNode.hasNext()){
             keys.add((iteratorNode.next()).getKey());
@@ -167,9 +166,10 @@ public class MyTreeMap<K, V> implements Iterable, Map<K, V>{
 
     @Override
     public Collection<V> values() {
-        Collection<V> values = new LinkedList<V>();
-        for (Object value : this){
-            values.add((V)value);
+        Collection<V> values = new LinkedList<>();
+        Iterator<V> iterator = this.iterator();
+        while (iterator.hasNext()){
+            values.add(iterator.next());
         }
         return values;
     }
@@ -186,8 +186,7 @@ public class MyTreeMap<K, V> implements Iterable, Map<K, V>{
 
     @Override
     public boolean containsKey(Object key) {
-        K castedKey = (K)key;
-        Node<K,V> gotNode = this.getNode(root, castedKey);
+        Node<K,V> gotNode = this.getNode(root, key);
         return (gotNode!=null);
     }
 
@@ -205,8 +204,7 @@ public class MyTreeMap<K, V> implements Iterable, Map<K, V>{
     @Override
     public V remove(Object key){
         boolean result = false;
-        K castedKey = (K)key;
-        Node<K,V> nodeToDelete = this.getNode(root, castedKey);
+        Node<K,V> nodeToDelete = this.getNode(root, key);
         if (nodeToDelete!=null){
             Node<K,V> parent = this.getParent(nodeToDelete);
             boolean hasLeftChildren = (nodeToDelete.getLeft()!=null);
@@ -255,8 +253,8 @@ public class MyTreeMap<K, V> implements Iterable, Map<K, V>{
         cur.setRight(toDelete.getRight());
         replaceNode(parent, toDelete, cur);
     }
-    private Iterator createIterator(){
-        Iterator iterator;
+    private Iterator<V> createIterator(){
+        Iterator<V> iterator;
         switch (iteratorKind){
             case INFIX : {
                 iterator = new IteratorInfix();
@@ -275,7 +273,7 @@ public class MyTreeMap<K, V> implements Iterable, Map<K, V>{
     }
 
     @Override
-    public Iterator iterator() {
+    public Iterator<V> iterator() {
         return createIterator();
     }
 
@@ -318,9 +316,9 @@ public class MyTreeMap<K, V> implements Iterable, Map<K, V>{
         }
     }
 
-    private class IteratorPrefix implements Iterator{
-        Stack<Node> nodeStack;
-        Node current;
+    private class IteratorPrefix implements Iterator<V>{
+        Stack<Node<K, V>> nodeStack;
+        Node<K, V> current;
 
         private IteratorPrefix(){
             nodeStack = new Stack<>();
@@ -339,8 +337,8 @@ public class MyTreeMap<K, V> implements Iterable, Map<K, V>{
         }
 
         @Override
-        public Object next() {
-            Object value = current.getValue();
+        public V next() {
+            V value = current.getValue();
 
             if (current.getRight()!=null){
                 nodeStack.push(current.getRight());
@@ -355,9 +353,9 @@ public class MyTreeMap<K, V> implements Iterable, Map<K, V>{
         }
     }
 
-    private class IteratorInfix implements Iterator{
-        Stack<Node> nodeStack = new Stack<>();
-        Node current;
+    private class IteratorInfix implements Iterator<V>{
+        Stack<Node<K,V>> nodeStack = new Stack<>();
+        Node<K,V> current;
 
         private IteratorInfix(){
             current = root;
@@ -379,8 +377,8 @@ public class MyTreeMap<K, V> implements Iterable, Map<K, V>{
         }
 
         @Override
-        public Object next() {
-            Object value = current.getValue();
+        public V next() {
+            V value = current.getValue();
 
             if (current.getRight()!=null){
                 current = current.getRight();
@@ -397,9 +395,9 @@ public class MyTreeMap<K, V> implements Iterable, Map<K, V>{
         }
     }
 
-    private class IteratorPostfix implements Iterator{
-        Stack<Node> nodeStack = new Stack<>();
-        Node current;
+    private class IteratorPostfix implements Iterator<V>{
+        Stack<Node<K,V>> nodeStack = new Stack<>();
+        Node<K,V> current;
 
         private IteratorPostfix(){
             current = root;
@@ -426,8 +424,8 @@ public class MyTreeMap<K, V> implements Iterable, Map<K, V>{
         }
 
         @Override
-        public Object next() {
-            Object value = current.getValue();
+        public V next() {
+            V value = current.getValue();
 
             Node tempRoot = nodeStack.peek();
             if((tempRoot!=null)&&(tempRoot.getRight()!=null && tempRoot.getLeft()!=null && current==tempRoot.getLeft())){
@@ -450,9 +448,9 @@ public class MyTreeMap<K, V> implements Iterable, Map<K, V>{
         }
     }
 
-    private class IteratorHorizontal implements Iterator{
-        private Node current;
-        private LinkedList<Node> nodes;
+    private class IteratorHorizontal implements Iterator<V>{
+        private Node<K,V> current;
+        private LinkedList<Node<K,V>> nodes;
         private IteratorHorizontal(){
             nodes = new LinkedList<>();
             current = root;
@@ -467,8 +465,8 @@ public class MyTreeMap<K, V> implements Iterable, Map<K, V>{
         }
 
         @Override
-        public Object next() {
-            Object value = current.getValue();
+        public V next() {
+            V value = current.getValue();
 
             if (current.getLeft() != null) {
                 nodes.addLast(current.getLeft());
@@ -493,7 +491,7 @@ public class MyTreeMap<K, V> implements Iterable, Map<K, V>{
         private Node<K, V> right;
         private Node<K, V> left;
 
-        public Node(K key, V value, Node<K, V> right, Node<K, V> left) {
+        private Node(K key, V value, Node<K, V> right, Node<K, V> left) {
             this.key = key;
             this.value = value;
             this.right = right;
@@ -514,19 +512,19 @@ public class MyTreeMap<K, V> implements Iterable, Map<K, V>{
             return oldValue;
         }
 
-        public Node<K, V> getRight() {
+        private Node<K, V> getRight() {
             return right;
         }
 
-        public void setRight(Node<K, V> right) {
+        private void setRight(Node<K, V> right) {
             this.right = right;
         }
 
-        public Node<K, V> getLeft() {
+        private Node<K, V> getLeft() {
             return left;
         }
 
-        public void setLeft(Node<K, V> left) {
+        private void setLeft(Node<K, V> left) {
             this.left = left;
         }
 
