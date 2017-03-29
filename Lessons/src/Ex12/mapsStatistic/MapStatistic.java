@@ -1,6 +1,8 @@
 package Ex12.mapsStatistic;
 
 
+
+
 import java.util.*;
 
 public class MapStatistic {
@@ -11,7 +13,10 @@ public class MapStatistic {
         double[] hashMapTimes = new double[3];
 
         System.out.println("Tree Map");
+
         Map<Integer, Student> treeMap = new TreeMap<>();
+        Map<Integer, Student> hashMap = new HashMap<>();
+
         treeMapTimes[0] = testAdd(treeMap, students, num);
         System.out.println("--------------------------------------");
         treeMapTimes[1] = testFind(treeMap, students, num);
@@ -22,7 +27,6 @@ public class MapStatistic {
         System.out.println();
 
         System.out.println("Hash Map");
-        Map<Integer, Student> hashMap = new HashMap<>();
         hashMapTimes[0] = testAdd(hashMap, students, num);
         System.out.println("--------------------------------------");
         hashMapTimes[1] = testFind(hashMap, students, num);
