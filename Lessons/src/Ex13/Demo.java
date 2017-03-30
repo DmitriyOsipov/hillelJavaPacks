@@ -53,7 +53,7 @@ public class Demo {
 
     public static Event sendEvent(List<Animal> animals){
         Random random = new Random();
-        int num = random.nextInt(animals.size());
+        int num = Math.abs(random.nextInt(animals.size()));
         return animals.get(num).sendEvent();
     }
 }

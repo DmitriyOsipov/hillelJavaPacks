@@ -11,4 +11,5 @@ public class Director extends Worker{
     public void notify(Event event) {
         System.out.println("I'm a Director. I'll track this.");
     }
+
 }

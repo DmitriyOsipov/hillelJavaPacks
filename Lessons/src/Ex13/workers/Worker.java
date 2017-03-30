@@ -12,6 +12,5 @@ public abstract class Worker implements Observer{
         this.name = name;
     }
 
-    @Override
     public abstract void notify(Event event);
 }
