@@ -23,7 +23,7 @@ public class Registrator implements Observable{
     @Override
     public void notifySubscribers(Event event) {
         for (Observer observer : subs){
-            observer.notify(event);
+            observer.notifyObserver(event);
         }
     }
 }

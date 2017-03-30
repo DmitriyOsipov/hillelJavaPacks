@@ -1,9 +1,6 @@
 package Ex13.animals;
 
-import Ex13.events.Event;
-import Ex13.events.EventGroom;
-import Ex13.events.EventHunger;
-import Ex13.events.EventIll;
+import Ex13.events.*;
 
 import java.util.Date;
 import java.util.Random;
@@ -68,7 +65,7 @@ public abstract class Animal {
         switch (random.nextInt(2)){
             case 0:{
                 String message = (isWild) ? "I'm wild" : "I'm domestic";
-                return new EventHunger(this.id, new Date(), message);
+                return (isWild) ? new EventHungerWild(this.id, new Date(), message):new EventHungerDomestic(this.id, new Date(), message);
             }
             default:
                 return new EventIll(this.id, new Date());

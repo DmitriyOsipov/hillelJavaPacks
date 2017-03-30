@@ -2,8 +2,9 @@ package Ex13.workers;
 
 
 import Ex13.events.Event;
+import Ex13.events.EventHunger;
 
-public class Feeder extends Worker{
+public class Feeder<T extends EventHunger> extends Worker<T>{
     private String forAnimals;
 
     public Feeder(int id, String name, String forAnimals) {
@@ -12,7 +13,7 @@ public class Feeder extends Worker{
     }
 
     @Override
-    public void notify(Event event) {
+    public void notifyObserver(T event) {
         System.out.println("I'm a feeder for " + forAnimals + " I'll feed that animal ");
     }
 }

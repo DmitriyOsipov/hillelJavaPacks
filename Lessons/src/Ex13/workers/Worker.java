@@ -3,7 +3,7 @@ package Ex13.workers;
 import Ex13.Observer;
 import Ex13.events.Event;
 
-public abstract class Worker implements Observer{
+public abstract class Worker<T extends Event> implements Observer<T>{
     private final int id;
     private String name;
 
@@ -12,5 +12,6 @@ public abstract class Worker implements Observer{
         this.name = name;
     }
 
-    public abstract void notify(Event event);
+    @Override
+    public abstract void notifyObserver(T event);
 }

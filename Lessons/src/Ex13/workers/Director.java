@@ -8,7 +8,7 @@ public class Director extends Worker{
     }
 
     @Override
-    public void notify(Event event) {
+    public void notifyObserver(Event event) {
         System.out.println("I'm a Director. I'll track this.");
     }
 
