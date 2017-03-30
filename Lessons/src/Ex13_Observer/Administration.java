@@ -1,9 +1,6 @@
 package Ex13_Observer;
 
-import Ex13_Observer.events.Event;
-import Ex13_Observer.events.EventGroom;
-import Ex13_Observer.events.EventHunger;
-import Ex13_Observer.events.EventSick;
+import Ex13_Observer.events.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +11,7 @@ public class Administration {
     private Subscription<EventHunger> hungerSubscription = new Subscription<>();
     private Subscription<EventSick> sickSubscription = new Subscription<>();
     private Subscription<EventGroom> groomSubscription = new Subscription<>();
+    private Subscription<EventHungerD> hungerDSubscription = new Subscription<>();
 
     Map<String, Subscription> subscriptions = new HashMap<>();
 
@@ -25,6 +23,7 @@ public class Administration {
         subscriptions.put(EventHunger.class.getName(), hungerSubscription);
         subscriptions.put(EventSick.class.getName(), sickSubscription);
         subscriptions.put(EventGroom.class.getName(), groomSubscription);
+        subscriptions.put(EventHungerD.class.getName(), hungerDSubscription);
     }
 
     public void subscribe(Class event, Observer subscriber){
@@ -49,7 +48,6 @@ public class Administration {
 
     public void reactEvent(Event event, Animal animal){
         String eventType = event.getClass().getName();
-        System.out.println("\t\t"+eventType);
         subscriptions.get(eventType).notifySubscribers(animal, event);
     }
 

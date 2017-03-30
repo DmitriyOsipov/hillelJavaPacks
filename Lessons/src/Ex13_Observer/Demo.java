@@ -1,9 +1,6 @@
 package Ex13_Observer;
 
-import Ex13_Observer.events.Event;
-import Ex13_Observer.events.EventGroom;
-import Ex13_Observer.events.EventHunger;
-import Ex13_Observer.events.EventSick;
+import Ex13_Observer.events.*;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -24,7 +21,8 @@ public class Demo {
         for (Animal animal: animals){
             try {
                 System.out.println("++++++++++++");
-                admin.reactEvent(animal.getState(), animal);
+                Event event = animal.getState();
+                admin.reactEvent(event, animal);
                 Thread.sleep(1000);
             }
             catch (Exception e){}
@@ -65,6 +63,7 @@ public class Demo {
 
         Worker<EventSick> vet = new Worker<EventSick>(1, "Vet");
         administration.subscribe(EventSick.class, vet);
+        administration.subscribe(EventHunger.class, vet);
         workers.add(vet);
 
         Worker<EventGroom> groomer = new Worker<EventGroom>(2, "Groomer");
@@ -74,6 +73,10 @@ public class Demo {
         Worker<EventHunger> feeder = new Worker<EventHunger>(3, "Feeder");
         administration.subscribe(EventHunger.class, feeder);
         workers.add(feeder);
+
+        Worker<EventHungerD> feeder2 = new Worker<EventHungerD>(4, "FeederDomAnimals");
+        administration.subscribe(EventHungerD.class, feeder2);
+        workers.add(feeder2);
 
         return workers;
     }
