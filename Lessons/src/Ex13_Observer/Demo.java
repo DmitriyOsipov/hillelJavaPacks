@@ -12,7 +12,7 @@ public class Demo {
     public static void main(String[] args) {
         Administration admin = new Administration();
 
-        List<Animal> animals = generateAnimals(10);
+        List<Animal> animals = generateAnimals(15);
         List<Worker> workers = generateWorkers(admin);
 
         printList(animals);
@@ -23,7 +23,7 @@ public class Demo {
                 System.out.println("++++++++++++");
                 Event event = animal.getState();
                 admin.reactEvent(event, animal);
-                Thread.sleep(1000);
+                Thread.sleep(1500);
             }
             catch (Exception e){}
         }
@@ -77,6 +77,8 @@ public class Demo {
         Worker<EventHungerD> feeder2 = new Worker<EventHungerD>(4, "FeederDomAnimals");
         administration.subscribe(EventHungerD.class, feeder2);
         workers.add(feeder2);
+
+        administration.subscribe(EventHungerD.class, vet);
 
         return workers;
     }
