@@ -1,0 +1,31 @@
+File exists
+Full path:C:\Users\mtzadmin\IdeaProjects\hillelJavaPacks\Lessons\src\Ex16\genText.txt
+Size: 107768442880 bytes
+Result files:
+--------
+FileWriter
+File exists
+Full path:C:\Users\mtzadmin\IdeaProjects\hillelJavaPacks\Lessons\src\Ex16\out_FileWriter.txt
+Size: 107768442880 bytes
+
+--------
+BufferedWriter
+File exists
+Full path:C:\Users\mtzadmin\IdeaProjects\hillelJavaPacks\Lessons\src\Ex16\out_BufferedWriter.txt
+Size: 107768442880 bytes
+
+--------
+PrintWriter
+File exists
+Full path:C:\Users\mtzadmin\IdeaProjects\hillelJavaPacks\Lessons\src\Ex16\out_PrintWriter.txt
+Size: 107768442880 bytes
+
++---------------+---------------+
+|    Writer name|       time, ms|
++---------------+---------------+
+| BufferedWriter|            837|
++---------------+---------------+
+|     FileWriter|           7036|
++---------------+---------------+
+|    PrintWriter|           1333|
++---------------+---------------+
