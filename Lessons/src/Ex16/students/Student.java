@@ -31,8 +31,8 @@ public class Student implements CsvPrepared{
         this.name = name;
     }
 
-    public Map<String, List<Integer>> getJournal() {
-        return journal.getJournal();
+    public Journal getJournal() {
+        return journal;
     }
 
     public void setJournal(Journal journal) {
@@ -63,13 +63,21 @@ public class Student implements CsvPrepared{
     public String getCsvString() {
         StringBuilder builder = new StringBuilder();
         String format = "%s%c%s%c%s";
-        builder.append(String.format(format, "id", csvSeparator, "name", csvSeparator, "groupId"));
-        builder.append(String.format("\n" + format, this.id, csvSeparator, this.name, csvSeparator, this.groupId));
+        //builder.append(String.format(format, "id", csvSeparator, "name", csvSeparator, "groupId"));
+        builder.append(String.format(format, this.id, csvSeparator, this.name, csvSeparator, this.groupId));
         return builder.toString();
     }
 
     @Override
     public void setCsvSeparator(char newSeparator) {
         this.csvSeparator = newSeparator;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(String.format("\t--Student id: %d, name: %s", id, name));
+        builder.append(journal);
+        return builder.toString();
     }
 }

@@ -9,17 +9,56 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class DataLayer {
-    public void saveToCsv(String filename, CsvPrepared object) throws IOException{
-        Saver saver = new Saver();
-        saver.SaveToFile(filename, object.getCsvString());
+    private final String filesPath = "";//"Ex16/students/files/";
+    private final String groupFile = filesPath + "groups.csv";
+    private final String studentsFile = filesPath + "students.csv";
+    private final String subjectsFile = filesPath + "journal.csv";
+    private final String[] files = {groupFile, studentsFile, subjectsFile};
+
+    private StringBuilder groupsBuilder;
+    private StringBuilder studentsBuilder;
+    private StringBuilder journalBuilder;
+    private List<StringBuilder> builders;
+
+    public void saveAll(List<Group> groupsList) throws IOException{
+        builders = new LinkedList<>();
+        prepareBuilders(groupsList);
+        saveInformation();
     }
+
+    private void prepareBuilders(List<Group> groupsList){
+        groupsBuilder = new StringBuilder();
+        builders.add(groupsBuilder);
+        studentsBuilder = new StringBuilder();
+        builders.add(studentsBuilder);
+        journalBuilder = new StringBuilder();
+        builders.add(journalBuilder);
+
+        for(Group group : groupsList){
+            groupsBuilder.append(group.getCsvString());
+
+            for (Student student: group.getStudents()){
+                studentsBuilder.append(student.getCsvString());
+                studentsBuilder.append("\n");
+                journalBuilder.append(student.getJournal().getCsvString());
+            }
+        }
+    }
+
+    private void saveInformation() throws IOException{
+        Saver saver = new Saver();
+        for (int i=0; i<files.length; i++){
+            saver.SaveToFile(files[i], builders.get(i).toString());
+        }
+    }
+
 
     private Map<Integer, Journal> loadJournal(String filename, char csvSeparator) throws IOException{
         Loader loader = new Loader();
         List<String> strings = loader.load(filename);
 
         Map<Integer, Journal> journals = new TreeMap<>();
-        for (int i=1; i<strings.size(); i++){
+        for (int i=0; i<strings.size(); i++){
             String[] line = strings.get(i).split(String.valueOf(csvSeparator));
             if (line.length>2){
                 Integer studentId = Integer.valueOf(line[0]);
@@ -41,7 +80,7 @@ public class DataLayer {
         Loader loader = new Loader();
         List<String> strings =  loader.load(filename);
 
-        for (int i=1; i<strings.size(); i++){
+        for (int i=0; i<strings.size(); i++){
             String[] line = strings.get(i).split(String.valueOf(csvSeparator));
             int groupId = (line.length>=3) ? Integer.valueOf(line[2]): -1;
             if (line.length>=2){
@@ -61,7 +100,7 @@ public class DataLayer {
         Loader loader = new Loader();
         List<String> strings = loader.load(filename);
 
-        for (int i=1; i<strings.size(); i++){
+        for (int i=0; i<strings.size(); i++){
             String[] line = strings.get(i).split(String.valueOf(csvSeparator));
             if (line.length>=2){
                 Group group = new Group(Integer.valueOf(line[0]), line[1]);
@@ -69,6 +108,10 @@ public class DataLayer {
             }
         }
         return groups;
+    }
+
+    public List<Group> loadAll(char csvSeparator) throws IOException{
+        return this.loadAll(groupFile, studentsFile, subjectsFile, csvSeparator);
     }
 
     public List<Group> loadAll(String groupFile, String studentsFile, String journalFile, char csvSeparator) throws IOException{

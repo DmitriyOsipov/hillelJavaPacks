@@ -1,9 +1,6 @@
 package Ex16.students;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class Group implements CsvPrepared{
     private char csvSeparator = ';';
@@ -50,12 +47,16 @@ public class Group implements CsvPrepared{
         return students.size();
     }
 
+    public Collection<Student> getStudents() {
+        return students.values();
+    }
+
     @Override
     public String getCsvString() {
         StringBuilder builder = new StringBuilder();
         String format = "%s%c%s%c";
-        builder.append(String.format(format, "id", csvSeparator, "name", csvSeparator));
-        builder.append(String.format("\n" + format, this.id, csvSeparator, this.name, csvSeparator));
+        //builder.append(String.format(format, "id", csvSeparator, "name", csvSeparator));
+        builder.append(String.format(format, this.id, csvSeparator, this.name, csvSeparator));
         return builder.toString();
     }
 
@@ -63,11 +64,12 @@ public class Group implements CsvPrepared{
 
     @Override
     public String toString() {
-        return "Group{" +
-                "csvSeparator=" + csvSeparator +
-                ", id=" + id +
-                ", name='" + name + '\'' +
-                ", students=" + students +
-                '}';
+        StringBuilder builder = new StringBuilder(String.format("\nID: %d  Name: %s", id, name));
+        for (Student student: students.values()){
+            builder.append("\n");
+            builder.append(student);
+            builder.append("\n");
+        }
+        return builder.toString();
     }
 }

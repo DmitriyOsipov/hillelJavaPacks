@@ -56,12 +56,13 @@ public class Journal implements CsvPrepared{
     @Override
     public String getCsvString() {
         StringBuilder builder = new StringBuilder();
-        builder.append(String.format("%s%c%s", "studentId", csvSeparator, "Subject"));
+        //builder.append(String.format("%s%c%s", "studentId", csvSeparator, "Subject"));
         for (Map.Entry<String, List<Integer>> subject : journal.entrySet()){
-            builder.append(String.format("\n%s%c%s", this.studentId, csvSeparator, subject.getKey(), csvSeparator));
+            builder.append(String.format("%s%c%s", this.studentId, csvSeparator, subject.getKey(), csvSeparator));
             for (Integer mark : subject.getValue()){
                 builder.append(String.format("%c%s", csvSeparator, mark));
             }
+            builder.append("\n");
         }
 
         return builder.toString();
@@ -70,5 +71,17 @@ public class Journal implements CsvPrepared{
     @Override
     public void setCsvSeparator(char newSeparator) {
         this.csvSeparator = newSeparator;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        for (Map.Entry<String, List<Integer>> entry : journal.entrySet()){
+            builder.append(String.format("\n\t\t--- %s  Marks: ", entry.getKey()));
+            for (Integer mark: entry.getValue()){
+                builder.append(String.format("%d; ", mark));
+            }
+        }
+        return builder.toString();
     }
 }

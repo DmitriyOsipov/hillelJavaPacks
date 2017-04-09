@@ -2,8 +2,8 @@ Out file exists
 Full path:C:\Users\Dreamer\IdeaProjects\hillelJavaPacks\Lessons\src\Ex16\genText.txt
 Size: 213771087872 bytes
 Writer name;fileName;fileSize, Mb;Remained Time, s;Speed, Mb/s
-BufferedReader;genText.txt;75,81711;0,29600;268581,08108
-BufferedWriter;genText.txt;75,81711;0,51500;154368,93204
-FileReader;genText.txt;75,81711;2,71500;29281,76796
-FileWriter;genText.txt;75,81711;4,07200;19523,57564
-PrintWriter;genText.txt;75,81711;0,78000;101923,07692
+BufferedReader;genText.txt;75,81711;0,31400;253184,71338
+BufferedWriter;genText.txt;75,81711;0,49700;159959,75855
+FileReader;genText.txt;75,81711;2,97600;26713,70968
+FileWriter;genText.txt;75,81711;4,13000;19249,39467
+PrintWriter;genText.txt;75,81711;0,76600;103785,90078
