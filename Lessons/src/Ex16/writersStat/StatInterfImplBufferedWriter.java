@@ -2,22 +2,22 @@ package Ex16.writersStat;
 
 import java.io.*;
 
-public class StatInterfImplPrintWriter implements StatInterface{
+public class StatInterfImplBufferedWriter implements StatInterface {
     @Override
     public void doOperation(String inFile, String outFile) throws IOException {
         BufferedReader reader = null;
-        PrintWriter writer = null;
+        BufferedWriter writer = null;
 
-        try{
+        try {
             reader = new BufferedReader(new FileReader(inFile));
-            writer = new PrintWriter(new FileWriter(outFile));
+            writer = new BufferedWriter(new FileWriter(outFile));
             String s;
             while ((s = reader.readLine())!=null){
-                writer.println(s);
+                writer.write(s);
             }
         }
-        catch (IOException ex){
-            ex.printStackTrace();
+        catch (IOException e){
+            e.printStackTrace();
         }
         finally {
             if (reader!=null){

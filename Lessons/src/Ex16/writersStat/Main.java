@@ -3,7 +3,6 @@ package Ex16.writersStat;
 
 import Ex16.Saver;
 
-import java.io.Console;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -52,12 +51,12 @@ public class Main {
         boolean isExist = file.exists();
         StringBuilder fileData = new StringBuilder();
         if (isExist){
-            fileData.append("File exists\n");
+            fileData.append("Out file exists\n");
             fileData.append(String.format("Full path:%s\n", file.getCanonicalPath()));
             fileData.append(String.format("Size: %d bytes\n", file.getTotalSpace()));
         }
         else {
-            fileData.append("File doesn't exist");
+            fileData.append("Out file doesn't exist");
         }
 
         return fileData.toString();
@@ -75,8 +74,10 @@ public class Main {
 
     private static Map<String, StatInterface> generateWriters(){
         Map<String, StatInterface> writers = new HashMap<>();
-        writers.put("FileWriter", new StatInterfImplFileReader());
-        writers.put("BufferedWriter", new StatInterfImplBufferedReader());
+        writers.put("FileReader", new StatInterfFileReader());
+        writers.put("BufferedReader", new StatInterfImplBufferedReader());
+        writers.put("FileWriter", new StatInterfImplFileWriter());
+        writers.put("BufferedWriter", new StatInterfImplBufferedWriter());
         writers.put("PrintWriter", new StatInterfImplPrintWriter());
         return writers;
     }

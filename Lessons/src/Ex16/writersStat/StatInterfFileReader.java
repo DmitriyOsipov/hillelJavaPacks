@@ -1,17 +1,16 @@
 package Ex16.writersStat;
 
-import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class StatInterfImplBufferedReader implements StatInterface {
+
+public class StatInterfFileReader implements StatInterface {
     @Override
     public void doOperation(String inFile, String outFile) throws IOException {
-        BufferedReader reader = null;
+        FileReader reader = null;
         try {
-            reader = new BufferedReader(new FileReader(inFile));
-            while (reader.readLine()!=null){
-            }
+            reader = new FileReader(inFile);
+            while (reader.read()!=-1){}
         }
         catch (IOException e){
             e.printStackTrace();

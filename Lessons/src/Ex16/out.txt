@@ -1,31 +1,41 @@
-File exists
-Full path:C:\Users\mtzadmin\IdeaProjects\hillelJavaPacks\Lessons\src\Ex16\genText.txt
-Size: 107768442880 bytes
+Out file exists
+Full path:C:\Users\Dreamer\IdeaProjects\hillelJavaPacks\Lessons\src\Ex16\genText.txt
+Size: 213771087872 bytes
 Result files:
 --------
 FileWriter
-File exists
-Full path:C:\Users\mtzadmin\IdeaProjects\hillelJavaPacks\Lessons\src\Ex16\out_FileWriter.txt
-Size: 107768442880 bytes
+Out file exists
+Full path:C:\Users\Dreamer\IdeaProjects\hillelJavaPacks\Lessons\src\Ex16\out_FileWriter.txt
+Size: 213771087872 bytes
 
 --------
+BufferedReader
+Out file doesn't exist
+--------
+FileReader
+Out file doesn't exist
+--------
 BufferedWriter
-File exists
-Full path:C:\Users\mtzadmin\IdeaProjects\hillelJavaPacks\Lessons\src\Ex16\out_BufferedWriter.txt
-Size: 107768442880 bytes
+Out file exists
+Full path:C:\Users\Dreamer\IdeaProjects\hillelJavaPacks\Lessons\src\Ex16\out_BufferedWriter.txt
+Size: 213771087872 bytes
 
 --------
 PrintWriter
-File exists
-Full path:C:\Users\mtzadmin\IdeaProjects\hillelJavaPacks\Lessons\src\Ex16\out_PrintWriter.txt
-Size: 107768442880 bytes
+Out file exists
+Full path:C:\Users\Dreamer\IdeaProjects\hillelJavaPacks\Lessons\src\Ex16\out_PrintWriter.txt
+Size: 213771087872 bytes
 
-+---------------+---------------+
-|    Writer name|       time, ms|
-+---------------+---------------+
-| BufferedWriter|            837|
-+---------------+---------------+
-|     FileWriter|           7036|
-+---------------+---------------+
-|    PrintWriter|           1333|
-+---------------+---------------+
++---------------+---------------+---------------+---------------+---------------+
+|    Writer name|       fileName|   fileSize, Mb|        time, s|    speed, Mb/s|
++---------------+---------------+---------------+---------------+---------------+
+| BufferedReader|    genText.txt|       75,81711|        0,29600|      256,13888|
++---------------+---------------+---------------+---------------+---------------+
+| BufferedWriter|    genText.txt|       75,81711|        0,51500|      147,21769|
++---------------+---------------+---------------+---------------+---------------+
+|     FileReader|    genText.txt|       75,81711|        2,71500|       27,92527|
++---------------+---------------+---------------+---------------+---------------+
+|     FileWriter|    genText.txt|       75,81711|        4,07200|       18,61913|
++---------------+---------------+---------------+---------------+---------------+
+|    PrintWriter|    genText.txt|       75,81711|        0,78000|       97,20142|
++---------------+---------------+---------------+---------------+---------------+

@@ -457,10 +457,10 @@ public class SudentsDataExtended {
         System.out.println(equals(groupC, groupB, false));
         System.out.println("+++++Is groupB and groupB equal?");
         System.out.println(equals(groupB, groupB, false));
-        System.out.println("+++++Is groupB and sorted copy of groupB equal?");
+        System.out.println("+++++Is groupB and sorted doOperation of groupB equal?");
         String[][][] copyB = copyGroup(groupB);
         copyB = sortStudents(copyB);
-        printGroup(copyB, skipMark, "Sorted copy of B");
+        printGroup(copyB, skipMark, "Sorted doOperation of B");
         System.out.println(equals(groupB, copyB, false));
         System.out.println("+++++Is groupB and sorted groupB equal if we insert 'true' as 'makeSortBeforeComparation' parameter to equals()?");
         System.out.println(equals(groupB, sortStudents(groupB), true));

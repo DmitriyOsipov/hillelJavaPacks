@@ -1,17 +1,18 @@
 package Ex16.writersStat;
 
+import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class StatInterfImplFileReader implements StatInterface{
+public class StatInterfImplFileWriter implements StatInterface{
     @Override
-    public void copy(String inFile, String outFile) throws IOException{
-        FileReader reader = null;
+    public void doOperation(String inFile, String outFile) throws IOException{
+        BufferedReader reader = null;
         FileWriter writer = null;
 
         try{
-            reader = new FileReader(inFile);
+            reader = new BufferedReader(new FileReader(inFile));
             writer = new FileWriter(outFile);
             int character;
             while ((character=reader.read())!=-1){
