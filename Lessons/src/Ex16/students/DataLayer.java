@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class DataLayer {
-    private final String filesPath = "";//"Ex16/students/files/";
+    private final String filesPath = "Lessons\\src\\Ex16\\students\\files\\";//"";//"Ex16/students/files/";
     private final String groupFile = filesPath + "groups.csv";
     private final String studentsFile = filesPath + "students.csv";
     private final String subjectsFile = filesPath + "journal.csv";
@@ -19,6 +19,10 @@ public class DataLayer {
     private StringBuilder studentsBuilder;
     private StringBuilder journalBuilder;
     private List<StringBuilder> builders;
+
+    public String getFilesPath() {
+        return filesPath;
+    }
 
     public void saveAll(List<Group> groupsList) throws IOException{
         builders = new LinkedList<>();

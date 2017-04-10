@@ -2,6 +2,7 @@ package Ex16.students;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 public class Student implements CsvPrepared{
@@ -57,6 +58,10 @@ public class Student implements CsvPrepared{
 
     public List<Integer> getMarks(String subject){
         return journal.getMarks(subject);
+    }
+
+    public Set<String> getSubjects(){
+        return journal.getSubjects();
     }
 
     @Override
