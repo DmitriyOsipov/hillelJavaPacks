@@ -1,49 +1,259 @@
-0;English;100;3;98;99;50;89
-0;Math;94;51;96;5;52
-0;Philosophy;55;50;70;85;84
-0;Physics;7;11;18;73;14;19;28
-0;Programming;64;35;79;93;76;73
-1;English;1;20;0;70;99;88
-1;Math;1;38;84;23;92;35;80;92;16;46;39;53;50;1;73
-1;Philosophy;26;68;62;68;76;2
-1;Physics;37;91;3;85;11;52;18
-1;Programming;37;71;32;46;59
-2;English;60;58;13;65;37;36;4
-2;Math;91;57;17;0;83;0;33
-2;Philosophy;23;92;67;88;14
-2;Physics;74;81;77;34;71
-2;Programming;78;48;32;83;81;66
-3;English;89;17;44;3
-3;Math;84;88;64;63;77;78;99;24;96;13
-3;Philosophy;68;5;63;72;23;38;49;23;77;28
-3;Physics;13;85;18;17;93;4;81
-3;Programming;49;6;66;39
-4;English;85;60
-4;Math;46;12;34;30;36;77
-4;Philosophy;55;77;64;99;75;12;34;84;15
-4;Physics;6;50;35;67
-4;Programming;15;34;20
-5;English;10;43;68;89;94;88;44;92
-5;Math;64;5;25;15;88;11;15;82;61
-5;Philosophy;74;20;40;81;52
-5;Physics;7;77;70;66;45;67;0
-5;Programming;85;12;66;33;36;89
-6;Math;20;88;8;96;6
-6;Philosophy;71;49;16;26;26;16
-6;Physics;0;43;24;3
-6;Programming;20;82;100;20;23
-7;English;72;53;65;64;33;36;59;34;44;85
-7;Math;36
-7;Philosophy;31;72;29;49;50
-7;Physics;26;59;94;31;87
-7;Programming;90;70;81;23;82;89
-8;English;65;10;78;78;55;66
-8;Math;13;21;27
-8;Philosophy;8;4;47;10
-8;Physics;89;58;48;90;20;89;22;24
-8;Programming;21;16;71;72;79;26;47
-9;English;80;63;23;11;81;6;43;20;43
-9;Math;22;63;66;64;21
-9;Philosophy;17;55;0;31;37;25;9;1
-9;Physics;6;75;96
-9;Programming;3;44;35;34;80;77
+0;Biology;50;62
+0;Chemistry;28;66;94
+0;Ecology;11
+0;Electrical Engineering;38;40
+0;English;96;89
+0;Geography;6;13;52
+0;Literature;59;75;76;16
+0;Math;11;100;26
+0;Philosophy;63;90;100;31
+0;Physics;70;22
+0;Programming;82;26;39
+0;Ukrainian;25;51;95
+1;Algorithms;54
+1;Biology;75
+1;Chemistry;66
+1;Circuit Design;42
+1;Electrical Engineering;68;69
+1;English;15
+1;Geography;14;33;39;97
+1;Literature;95;71
+1;Math;84;97;71
+1;Physics;74
+1;Programming;42;11
+1;Russian;72;47
+1;Ukrainian;51
+2;Algorithms;37;90;35
+2;Biology;16
+2;Circuit Design;13;52;3;97
+2;Ecology;58;20
+2;Electrical Engineering;40;68
+2;English;61;58;83;61
+2;Literature;54
+2;Math;35;66;96;10
+2;Physics;33;58;89
+2;Programming;42;32;1;51;82;12
+2;Russian;33;58
+2;Ukrainian;14;93
+3;Biology;78;10
+3;Chemistry;57;19
+3;Circuit Design;64;28;20;62;68
+3;Ecology;64;44;66;76;89;5;19
+3;Electrical Engineering;96
+3;Geography;64
+3;Literature;69;62
+3;Philosophy;82
+3;Physics;74
+3;Russian;71
+4;Algorithms;38;12
+4;Biology;19
+4;Circuit Design;98;46;22;17;60;73
+4;Ecology;81
+4;Electrical Engineering;64;64;94;55
+4;Geography;13
+4;Literature;96;51;80;79
+4;Math;79;17
+4;Philosophy;89;54;55
+4;Physics;26;36;12;28
+4;Programming;74;23;50;49;50;85
+4;Russian;98;45;67
+4;Ukrainian;75;78
+5;Algorithms;45
+5;Biology;92;92;22;98;77;36
+5;Chemistry;48
+5;Circuit Design;22;80;20
+5;Ecology;79;41;100;57
+5;Electrical Engineering;52;84;41;71;95
+5;Geography;6;23
+5;Literature;35;33
+5;Math;65;18;43
+5;Philosophy;79;11;39
+5;Physics;87
+5;Russian;14;31;82
+5;Ukrainian;56
+6;Chemistry;55;90
+6;Circuit Design;39;73;69;81
+6;English;91;19
+6;Geography;62;89
+6;Literature;29;7
+6;Math;42;21;47
+6;Philosophy;93;1
+6;Physics;10
+6;Russian;11;14;66
+6;Ukrainian;84
+7;Algorithms;60
+7;Biology;69;89;73
+7;Chemistry;28
+7;Circuit Design;1
+7;Ecology;39;53;92
+7;Electrical Engineering;93
+7;Geography;73;52;60;28
+7;Literature;88
+7;Math;75
+7;Philosophy;93
+7;Programming;33;48;47
+7;Russian;100
+7;Ukrainian;93;42;71
+8;Algorithms;96
+8;Biology;3;61;34;33
+8;Chemistry;85;91;39
+8;Circuit Design;6;20
+8;Ecology;74;74;88;86
+8;Electrical Engineering;67;10;57;90
+8;English;82;39;2;68;2
+8;Geography;7
+8;Literature;75;77
+8;Math;79
+8;Philosophy;35
+8;Physics;51;61
+8;Programming;62
+8;Russian;22;48;55;65;40;94;27
+8;Ukrainian;48
+9;Algorithms;20;37
+9;Biology;74
+9;Chemistry;39;66;14
+9;Circuit Design;68
+9;Ecology;84
+9;Electrical Engineering;17
+9;Geography;65
+9;Literature;10
+9;Math;18;30
+9;Philosophy;11
+9;Physics;50;68;24;73;52
+9;Programming;46;35;96
+9;Russian;17
+9;Ukrainian;61
+10;Algorithms;81;30;21
+10;Chemistry;76;91
+10;Circuit Design;26;66
+10;Ecology;22;80
+10;Electrical Engineering;11;70
+10;English;45
+10;Geography;99;22;42;94
+10;Literature;55;5
+10;Math;96;34
+10;Philosophy;54;72
+10;Programming;88;49;38;0
+10;Russian;30
+10;Ukrainian;88;18
+11;Algorithms;28;72
+11;Biology;96;89;28;92
+11;Chemistry;28
+11;Circuit Design;84
+11;Ecology;7;8;74;72
+11;Electrical Engineering;73;18
+11;English;92;97
+11;Literature;71
+11;Math;29;73
+11;Philosophy;98;100;88;66
+11;Physics;6;78
+11;Programming;38
+11;Russian;29;68
+11;Ukrainian;71;11;40;99;44;69;34
+12;Algorithms;63;72;37
+12;Biology;10
+12;Chemistry;83
+12;Ecology;12;73
+12;Electrical Engineering;90;49;24;48
+12;English;7;45;44
+12;Geography;13;47;22
+12;Literature;69;77
+12;Math;16;81;85
+12;Philosophy;36;38
+12;Physics;17;39
+12;Programming;8;53;55
+12;Russian;48;98;27;88
+12;Ukrainian;96;53;82;83;98
+13;Algorithms;95;57
+13;Biology;43;54
+13;Chemistry;99;49;58
+13;Circuit Design;68;12
+13;Ecology;31
+13;Electrical Engineering;41;49;22
+13;English;99
+13;Geography;60;13;86
+13;Literature;27;44
+13;Math;47;27
+13;Philosophy;34
+13;Physics;65
+13;Programming;69;49
+13;Russian;93;7;67
+13;Ukrainian;98;53
+14;Algorithms;56;89
+14;Biology;21;83
+14;Circuit Design;72;32;92;98;96;21
+14;Ecology;57;84
+14;Electrical Engineering;96;36
+14;English;64
+14;Geography;6;89
+14;Literature;97
+14;Math;6
+14;Philosophy;47;84;30
+14;Physics;89;2;23
+14;Programming;0;1;85;10;82
+14;Russian;70;88;14;73;62
+14;Ukrainian;71;18;4
+15;Algorithms;78
+15;Biology;24;17;72;72
+15;Circuit Design;14;41;40;0
+15;Ecology;36
+15;Electrical Engineering;58
+15;Geography;60;94
+15;Literature;39;82
+15;Math;42
+15;Philosophy;24;83;70;12
+15;Programming;3;18
+15;Russian;99;38;18;47;96
+16;Algorithms;19
+16;Biology;52
+16;Chemistry;13;8;26;64
+16;Circuit Design;44;41
+16;Ecology;91;87;30
+16;Electrical Engineering;16
+16;English;76
+16;Geography;71;33
+16;Literature;90;52;62
+16;Math;40;65
+16;Philosophy;37
+16;Physics;88;82
+16;Programming;84
+16;Russian;47;41
+17;Algorithms;19;56;33;99;100
+17;Chemistry;3;92;7;35
+17;Circuit Design;65;32
+17;Electrical Engineering;95;42
+17;English;7;39
+17;Geography;85;56
+17;Literature;77;14;60;35
+17;Math;39
+17;Physics;8;58;81
+17;Programming;70;22;79;10
+17;Russian;86;86;4
+17;Ukrainian;47;98
+18;Algorithms;59;44
+18;Biology;80;4;90
+18;Chemistry;38;41
+18;Circuit Design;0;80;43
+18;Ecology;99;31
+18;Electrical Engineering;91
+18;English;79;1
+18;Geography;77;18;57;12
+18;Literature;76;19
+18;Math;24
+18;Philosophy;24;54;21
+18;Physics;98;60;68;48
+18;Programming;40;85
+18;Russian;15;8;14
+18;Ukrainian;7;5;60
+19;Algorithms;70;50;37
+19;Biology;98
+19;Ecology;86;71;11
+19;Electrical Engineering;18
+19;English;9
+19;Literature;89;45;75
+19;Math;7
+19;Philosophy;12;45
+19;Physics;31;67;19
+19;Programming;42;60;53;97
+19;Russian;72
+19;Ukrainian;49

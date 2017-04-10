@@ -36,11 +36,15 @@ public class Group implements CsvPrepared{
     public void add(Student student){
         if (!students.containsKey(student.getId())){
             students.put(student.getId(), student);
+            student.setGroup(this.getId());
         }
     }
 
     public void remove(int studentId){
-        students.remove(studentId);
+        if (students.containsKey(studentId)){
+            students.get(studentId).setGroup(-1);
+            students.remove(studentId);
+        }
     }
 
     public int size(){

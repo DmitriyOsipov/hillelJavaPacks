@@ -14,21 +14,27 @@ public class Main {
         //System.out.println(group);
         List<Group> groups = new LinkedList<>();
         //groups.add(group);
+        //groups.add(generator.generateGroup(0, 10, 0));
+        //groups.add(generator.generateGroup(1, 10, 10));
 
         DataLayer dataLayer = new DataLayer();
         //*
         //dataLayer.saveAll(groups);
         //*/
         //group = null;
-        groups = null;
+        //groups = null;
+        //*
         groups = dataLayer.loadAll(';');
-        System.out.println(groups.get(0));
+        for (Group group : groups) {
+            System.out.println(group);
+            System.out.println("\n==============================");
+        }
 
         ReportsBuilder reportsBuilder = new ReportsBuilder();
         String report = reportsBuilder.getAverageMarks(groups.get(0));
         System.out.println(report);
 
         Saver resSaver = new Saver();
-        resSaver.SaveToFile(dataLayer.getFilesPath() + "report.txt", report);
+        resSaver.SaveToFile(dataLayer.getFilesPath() + "report.txt", report);//*/
     }
 }

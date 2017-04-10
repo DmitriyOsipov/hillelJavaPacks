@@ -7,7 +7,8 @@ public class StudentGenerator {
 
     public Group generateGroup(int id, int countStudents, int startIdStudent){
         Group group = new Group(id, String.format("Group-%d", id));
-        String[] studentsNames = {"Ivanov", "Petrov", "Sidorov", "A", "B", "C"};
+        String[] studentsNames = {"Ivanov", "Petrov", "Sidorov", "Antonov", "Burak", "Cot", "Efremov", "Gorodnij",
+                "Hromov", "Ilushenko", "Klon", "Slon", "Voron", "Rudij"};
         Random random = new Random();
         for (int i=0; i<countStudents; i++){
             int nameId = Math.abs(random.nextInt())%(studentsNames.length-1);
@@ -20,7 +21,9 @@ public class StudentGenerator {
 
     public Journal generateJournal(int studentId){
         Journal journal = new Journal(studentId);
-        String[] subjects = {"Math", "Physics", "English", "Programming", "Philosophy", "Literature"};
+        String[] subjects = {"Math", "Physics", "English", "Programming", "Philosophy", "Literature",
+                            "Ukrainian", "Russian", "Biology", "Geography", "Chemistry", "Algorithms",
+                            "Ecology", "Circuit Design", "Electrical Engineering", "Discrete Math"};
         Random random = new Random();
         int countMarks = 20 + Math.abs(random.nextInt(20));
         for (int i=0; i<countMarks; i++){

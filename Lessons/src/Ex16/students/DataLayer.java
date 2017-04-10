@@ -40,7 +40,7 @@ public class DataLayer {
 
         for(Group group : groupsList){
             groupsBuilder.append(group.getCsvString());
-
+            groupsBuilder.append("\n");
             for (Student student: group.getStudents()){
                 studentsBuilder.append(student.getCsvString());
                 studentsBuilder.append("\n");

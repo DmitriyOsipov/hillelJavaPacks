@@ -9,7 +9,7 @@ public class Student implements CsvPrepared{
     private char csvSeparator = ';';
     private final int id;
     private String name;
-    private int groupId;
+    private int groupId=-1;
 
     private Journal journal;
 
