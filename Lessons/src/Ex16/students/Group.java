@@ -39,8 +39,8 @@ public class Group implements CsvPrepared{
         }
     }
 
-    public void remove(Student student){
-        students.remove(student.getId());
+    public void remove(int studentId){
+        students.remove(studentId);
     }
 
     public int size(){
