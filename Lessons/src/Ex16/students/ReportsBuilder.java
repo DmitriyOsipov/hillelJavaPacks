@@ -25,8 +25,9 @@ public class ReportsBuilder {
         for (String subject : subjects){
             result.append(String.format("%15s|", subject));
             for (int i=0; i<studentsLines.size(); i++){
-                Double avgMark = (avgMarks.get(i).containsKey(subject)) ? avgMarks.get(i).get(subject):Double.valueOf(0);
-                String mark = String.format("%5.5f", avgMark);
+                //Double avgMark = (avgMarks.get(i).containsKey(subject)) ? avgMarks.get(i).get(subject):Double.valueof(0);
+                //String mark = String.format("%5.5f", avgMark);
+                String mark = (avgMarks.get(i).containsKey(subject)) ? String.format("%5.5f",avgMarks.get(i).get(subject)):"";
                 studentsLines.set(i, studentsLines.get(i).concat(String.format("%15s|",mark)));
                 //studentsLines.get(i).append(mark);//concat(String.format("", mark));
             }
