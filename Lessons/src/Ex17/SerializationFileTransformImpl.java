@@ -7,7 +7,6 @@ import java.io.ObjectOutputStream;
 
 public class SerializationFileTransformImpl implements FileTransformInterface {
     private String filesPath;
-
     private String dataFile;
 
     public SerializationFileTransformImpl(String filesPath) {
