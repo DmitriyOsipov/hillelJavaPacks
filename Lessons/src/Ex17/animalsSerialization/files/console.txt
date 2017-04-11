@@ -1,0 +1,28 @@
+Generated animals:
+Animals in list:
+This animal is a Cat. It is a domestic animal. ID: 0, Age: 5, Weight: 3,000, Color: White. Its' name is Barsik.
+This animal is a Crocodile. It is a wild animal. ID: 1, Age: 15, Weight: 305,000, Color: Green.
+This animal is a Dog. It is a domestic animal. ID: 2, Age: 7, Weight: 25,000, Color: Red. Its' name is Rex.
+This animal is a Fish. It is a wild animal. ID: 3, Age: 1, Weight: 0,100, Color: Gold.
+This animal is a Giraffe. It is a wild animal. ID: 4, Age: 10, Weight: 200,000, Color: Dotted.
+This animal is a GuideDog. It is a domestic animal. ID: 5, Age: 5, Weight: 45,000, Color: White. Its' name is Sam.
+This animal is a Hamster. It is a domestic animal. ID: 6, Age: 1, Weight: 0,300, Color: Black. Its' name is Jerry.
+This animal is a Lion. It is a wild animal. ID: 7, Age: 3, Weight: 150,000, Color: Yellow.
+This animal is a Wolf. It is a wild animal. ID: 8, Age: 2, Weight: 30,000, Color: Grey.
+-------------------
+Loaded animals:
+Animals in list:
+This animal is a Cat. It is a domestic animal. ID: 0, Age: 5, Weight: 3,000, Color: White. Its' name is Barsik.
+This animal is a Crocodile. It is a wild animal. ID: 1, Age: 15, Weight: 305,000, Color: Green.
+This animal is a Dog. It is a domestic animal. ID: 2, Age: 7, Weight: 25,000, Color: Red. Its' name is Rex.
+This animal is a Fish. It is a wild animal. ID: 3, Age: 1, Weight: 0,100, Color: Gold.
+This animal is a Giraffe. It is a wild animal. ID: 4, Age: 10, Weight: 200,000, Color: Dotted.
+This animal is a GuideDog. It is a domestic animal. ID: 5, Age: 5, Weight: 45,000, Color: White. Its' name is Sam.
+This animal is a Hamster. It is a domestic animal. ID: 6, Age: 1, Weight: 0,300, Color: Black. Its' name is Jerry.
+This animal is a Lion. It is a wild animal. ID: 7, Age: 3, Weight: 150,000, Color: Yellow.
+This animal is a Wolf. It is a wild animal. ID: 8, Age: 2, Weight: 30,000, Color: Grey.
+---------------
+Test animal
+This animal is a Cat. It is a domestic animal. ID: 123, Age: 155, Weight: 50,000, Color: Black. Its' name is Behemoth.
+Load test animal:
+This animal is a Cat. It is a domestic animal. ID: 123, Age: 155, Weight: 50,000, Color: Black. Its' name is Behemoth.

@@ -5,11 +5,13 @@ import Ex17.animalsSerialization.animalsClasses.Cat;
 import Ex17.animalsSerialization.animalsClasses.Pet;
 import Ex17.animalsSerialization.animalsClasses.WildAnimal;
 
+import java.io.PrintStream;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws Exception{
         String filesPath = "Lessons\\src\\Ex17\\animalsSerialization\\files\\";
+        setOutStream(filesPath);
 
         AnimalsGenerator animalsGenerator = new AnimalsGenerator();
         List<Animal> zoo = animalsGenerator.generateAnimals();
@@ -55,5 +57,11 @@ public class Main {
             result = result.concat(String.format(" Its' name is %s.", ((Pet)animal).getName()));
         }
         System.out.println(result);
+    }
+
+    private static void setOutStream(String path) throws Exception{
+        String filename = String.format("%s%s",path, "console.txt");
+        PrintStream outputStream = new PrintStream(filename);
+        System.setOut(outputStream);
     }
 }
