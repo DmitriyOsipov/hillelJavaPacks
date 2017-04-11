@@ -1,11 +1,13 @@
 package Ex16.students;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-public class Student implements CsvPrepared{
+public class Student implements CsvPrepared, Serializable{
+    public static final long serialVersionUID = 2017041102L;
     private char csvSeparator = ';';
     private final int id;
     private String name;

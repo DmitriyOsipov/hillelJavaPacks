@@ -1,8 +1,10 @@
 package Ex16.students;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Group implements CsvPrepared{
+public class Group implements CsvPrepared, Serializable{
+    public static final long serialVersionUID = 2017041101L;
     private char csvSeparator = ';';
     private int id;
     private String name;

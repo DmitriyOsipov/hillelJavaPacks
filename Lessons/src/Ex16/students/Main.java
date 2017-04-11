@@ -17,14 +17,17 @@ public class Main {
         //groups.add(generator.generateGroup(0, 10, 0));
         //groups.add(generator.generateGroup(1, 10, 10));
 
+        /*
         DataLayer dataLayer = new DataLayer();
+        dataLayer.setFileTransformImpl(new CsvFileTransformImpl(';', dataLayer.getFilesPath()));
+
+        groups = dataLayer.loadAll();//*/
+
+        DataLayer dataLayerSerialize =createDataLayer();
+        //dataLayerSerialize.saveAll(groups);
+        groups = dataLayerSerialize.loadAll();
+
         //*
-        //dataLayer.saveAll(groups);
-        //*/
-        //group = null;
-        //groups = null;
-        //*
-        groups = dataLayer.loadAll(';');
         for (Group group : groups) {
             System.out.println(group);
             System.out.println("\n==============================");
@@ -32,9 +35,13 @@ public class Main {
 
         ReportsBuilder reportsBuilder = new ReportsBuilder();
         String report = reportsBuilder.getAverageMarks(groups.get(0));
-        System.out.println(report);
+        System.out.println(report);//*/
 
-        Saver resSaver = new Saver();
-        resSaver.SaveToFile(dataLayer.getFilesPath() + "report.txt", report);//*/
+    }
+
+    private static DataLayer createDataLayer(){
+        DataLayer dataLayer = new DataLayer();
+        dataLayer.setFileTransformImpl(new SerializationFileTransformImpl(dataLayer.getFilesPath()));
+        return dataLayer;
     }
 }

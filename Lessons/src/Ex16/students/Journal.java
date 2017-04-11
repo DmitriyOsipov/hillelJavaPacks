@@ -1,9 +1,11 @@
 package Ex16.students;
 
+import java.io.Serializable;
 import java.util.*;
 
 
-public class Journal implements CsvPrepared{
+public class Journal implements CsvPrepared, Serializable{
+    public static final long serialVersionUID = 2017041103L;
     private char csvSeparator = ';';
     private final int studentId;
 
