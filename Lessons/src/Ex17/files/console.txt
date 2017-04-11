@@ -1,0 +1,39 @@
+========================================
+Our personnel:
+         Post             Name      ID
+----------------------------------------
+  Director -          Ivanov (id:   0)
+       Vet -          Petrov (id:   1)
+   Groomer -         Sidorov (id:   2)
+    Feeder -        Alekseev (id:   3)
+----------------------------------------
+Our animals:
+  ID           Type
+--------------------
+   0            Wild
+   1        Domestic
+   2        Domestic
+   3        Domestic
+   4        Domestic
+   5        Domestic
+   6            Wild
+   7        Domestic
+   8        Domestic
+   9        Domestic
+========================================
+Generate 3 events for random animals:
+--Event 1
+Worker{id=3, name='Alekseev', post='Feeder'} react on event Event{message='Animal Animal{id=9 type=Domestic} feels hunger.', animal=Animal{id=9 type=Domestic}, eventType=EVENT_HUNGER}
+Worker{id=1, name='Petrov', post='Vet'} react on event Event{message='Animal Animal{id=9 type=Domestic} feels hunger.', animal=Animal{id=9 type=Domestic}, eventType=EVENT_HUNGER}
+Worker{id=0, name='Ivanov', post='Director'} react on event Event{message='Animal Animal{id=9 type=Domestic} feels hunger.', animal=Animal{id=9 type=Domestic}, eventType=EVENT_HUNGER}
+------
+--Event 2
+Worker{id=0, name='Ivanov', post='Director'} react on event Event{message='Animal Animal{id=2 type=Domestic} need a groomer.', animal=Animal{id=2 type=Domestic}, eventType=EVENT_GROOM}
+Worker{id=2, name='Sidorov', post='Groomer'} react on event Event{message='Animal Animal{id=2 type=Domestic} need a groomer.', animal=Animal{id=2 type=Domestic}, eventType=EVENT_GROOM}
+------
+--Event 3
+Worker{id=3, name='Alekseev', post='Feeder'} react on event Event{message='Animal Animal{id=0 type=Wild} feels hunger.', animal=Animal{id=0 type=Wild}, eventType=EVENT_HUNGER}
+Worker{id=1, name='Petrov', post='Vet'} react on event Event{message='Animal Animal{id=0 type=Wild} feels hunger.', animal=Animal{id=0 type=Wild}, eventType=EVENT_HUNGER}
+Worker{id=0, name='Ivanov', post='Director'} react on event Event{message='Animal Animal{id=0 type=Wild} feels hunger.', animal=Animal{id=0 type=Wild}, eventType=EVENT_HUNGER}
+------
+
