@@ -12,6 +12,8 @@ public class Main {
     public static void main(String[] args) throws Exception{
         String filesPath = "Lessons\\src\\Ex17\\animalsSerialization\\files\\";
         setOutStream(filesPath);
+        DataLayer dataLayer = new DataLayer(filesPath);
+        dataLayer.setRwImplemetation(setRWImplement());
 
         AnimalsGenerator animalsGenerator = new AnimalsGenerator();
         List<Animal> zoo = animalsGenerator.generateAnimals();
@@ -20,23 +22,23 @@ public class Main {
 
         System.out.println("-------------------");
 
-        SerializationImpl serialization = new SerializationImpl(filesPath);
-        serialization.saveAll(zoo);
+        dataLayer.saveAll(zoo);
         zoo = null;
 
-        zoo = serialization.loadAll();
+        zoo = dataLayer.loadAll();
         System.out.println("Loaded animals:");
         printAnimals(zoo);
         System.out.println("---------------");
 
         Cat testAnimal = new Cat(123, 155, 50, "Black", "Behemoth", false);
-        String filename = String.format("%s%s.dat", filesPath, testAnimal.getClass().getSimpleName());
+        String filename = String.format("%s.dat", testAnimal.getClass().getSimpleName());
         System.out.println("Test animal");
         printAnimal(testAnimal);
-        serialization.saveToFile(filename, testAnimal);
+        dataLayer.setFile(filename);
+        dataLayer.saveToFile(filename, testAnimal);
 
         System.out.println("Load test animal:");
-        Cat testAnimal2 = (Cat)serialization.loadFromFile(filename);
+        Animal testAnimal2 = dataLayer.loadFromFile(filename, Cat.class);
         printAnimal(testAnimal2);
     }
 
@@ -63,5 +65,9 @@ public class Main {
         String filename = String.format("%s%s",path, "console.txt");
         PrintStream outputStream = new PrintStream(filename);
         System.setOut(outputStream);
+    }
+
+    private static FileRWInterface setRWImplement(){
+        return new SerializationImpl();
     }
 }
