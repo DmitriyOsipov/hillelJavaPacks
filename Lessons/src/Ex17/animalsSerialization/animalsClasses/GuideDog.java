@@ -1,10 +1,11 @@
 package Ex17.animalsSerialization.animalsClasses;
 
-/**
- * Created by Dreamer on 19.02.2017.
- */
+
 public class GuideDog extends Dog {
     private boolean isTrained;
+
+    public GuideDog() {
+    }
 
     public GuideDog(int id, int age, double weight, String color, String name, boolean isVacinated, boolean isTrained) {
         super(id, age, weight, color, name, isVacinated);

@@ -1,5 +1,19 @@
+Demonstration with one animal
+================================================
+Serialization implementation: Jackson Serialization to JSON(com.fasterxml.jackson)
+
+Test animal
+This animal is a Cat. It is a domestic animal. ID: 123, Age: 155, Weight: 50,000, Color: Black. Its' name is Behemoth.
+Load test animal:
+This animal is a Cat. It is a domestic animal. ID: 123, Age: 155, Weight: 50,000, Color: Black. Its' name is Behemoth.
+================================================
+
+Demonstration with Zoo
+================================================
+Serialization implementation: Jackson Serialization to JSON(com.fasterxml.jackson)
+
 Generated animals:
-Animals in list:
+Animals in zoo:
 This animal is a Cat. It is a domestic animal. ID: 0, Age: 5, Weight: 3,000, Color: White. Its' name is Barsik.
 This animal is a Crocodile. It is a wild animal. ID: 1, Age: 15, Weight: 305,000, Color: Green.
 This animal is a Dog. It is a domestic animal. ID: 2, Age: 7, Weight: 25,000, Color: Red. Its' name is Rex.
@@ -11,7 +25,7 @@ This animal is a Lion. It is a wild animal. ID: 7, Age: 3, Weight: 150,000, Colo
 This animal is a Wolf. It is a wild animal. ID: 8, Age: 2, Weight: 30,000, Color: Grey.
 -------------------
 Loaded animals:
-Animals in list:
+Animals in zoo:
 This animal is a Cat. It is a domestic animal. ID: 0, Age: 5, Weight: 3,000, Color: White. Its' name is Barsik.
 This animal is a Crocodile. It is a wild animal. ID: 1, Age: 15, Weight: 305,000, Color: Green.
 This animal is a Dog. It is a domestic animal. ID: 2, Age: 7, Weight: 25,000, Color: Red. Its' name is Rex.
@@ -22,7 +36,4 @@ This animal is a Hamster. It is a domestic animal. ID: 6, Age: 1, Weight: 0,300,
 This animal is a Lion. It is a wild animal. ID: 7, Age: 3, Weight: 150,000, Color: Yellow.
 This animal is a Wolf. It is a wild animal. ID: 8, Age: 2, Weight: 30,000, Color: Grey.
 ---------------
-Test animal
-This animal is a Cat. It is a domestic animal. ID: 123, Age: 155, Weight: 50,000, Color: Black. Its' name is Behemoth.
-Load test animal:
-This animal is a Cat. It is a domestic animal. ID: 123, Age: 155, Weight: 50,000, Color: Black. Its' name is Behemoth.
+================================================

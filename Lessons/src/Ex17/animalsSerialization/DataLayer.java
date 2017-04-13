@@ -20,21 +20,41 @@ public class DataLayer {
         this.rwImplemetation = rwImplemetation;
     }
 
-    public List<Animal> loadAll() throws Exception {
+    public String getRwImplemetation() {
+        return rwImplemetation.getImplementationName();
+    }
+
+    public Zoo loadAll() throws Exception{
         return rwImplemetation.loadAll(dataFile);
     }
+    /*
+    public List<Animal> loadAll() throws Exception {
+        return rwImplemetation.loadAll(dataFile);
+    }//*/
 
     public void saveAll(List<Animal> zoo) throws Exception {
         rwImplemetation.saveToFile(dataFile, zoo);
     }
-
+/*
     public Animal loadFromFile(String filename, Class<? extends Animal> animalType) throws Exception{
-        Animal loaded = animalType.cast(rwImplemetation.loadFromFile(filename));
+        Animal loaded = animalType.cast(rwImplemetation.loadFromFile(filename, animalType));
+        return loaded;
+    }//*/
+    public Object loadFromFile(String filename, Class objectType) throws Exception{
+        Object loaded = rwImplemetation.loadFromFile(filename, objectType);
+        return loaded;
+    }
+    public Animal loadFromFile() throws Exception{
+        Animal loaded = (Animal)rwImplemetation.loadFromFile(dataFile, Animal.class);
         return loaded;
     }
 
     public void saveToFile(String filename, Animal object) throws Exception{
         rwImplemetation.saveToFile(filename, object);
+    }
+
+    public void saveToFile(Object object) throws Exception{
+        rwImplemetation.saveToFile(dataFile, object);
     }
 
     public void setFilesPath(String path) {
@@ -48,7 +68,7 @@ public class DataLayer {
 
     public void setFile(String file) {
         this.file = file;
-        this.dataFile = String.format("%s%s", filesPath, dataFile);
+        this.dataFile = String.format("%s%s", filesPath, file);
     }
 
     public String getFilesPath() {

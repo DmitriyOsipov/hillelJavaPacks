@@ -1,11 +1,12 @@
 package Ex17.animalsSerialization.animalsClasses;
 
-/**
- * Created by Dreamer on 19.02.2017.
- */
+
 public class Pet extends Animal {
-    private final String name;
+    private String name;
     private boolean isVacinated;
+
+    public Pet() {
+    }
 
     public Pet(int id, int age, double weight, String color, String name, boolean isVacinated) {
         super(id, age, weight, color);

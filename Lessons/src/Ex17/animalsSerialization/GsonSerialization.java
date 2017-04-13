@@ -5,7 +5,7 @@ import Ex17.animalsSerialization.animalsClasses.Animal;
 import java.util.List;
 
 
-
+/*
 public class GsonSerialization implements FileRWInterface{
     @Override
     public void saveToFile(String filename, Object object) throws Exception {
@@ -13,7 +13,7 @@ public class GsonSerialization implements FileRWInterface{
     }
 
     @Override
-    public Object loadFromFile(String filename) throws Exception {
+    public Object loadFromFile(String filename, Class objectClass) throws Exception {
         return null;
     }
 
@@ -21,4 +21,4 @@ public class GsonSerialization implements FileRWInterface{
     public List<Animal> loadAll(String filename) throws Exception {
         return null;
     }
-}
+}//*/

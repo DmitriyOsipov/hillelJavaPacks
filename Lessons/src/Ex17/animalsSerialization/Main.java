@@ -12,53 +12,18 @@ public class Main {
     public static void main(String[] args) throws Exception{
         String filesPath = "Lessons\\src\\Ex17\\animalsSerialization\\files\\";
         setOutStream(filesPath);
-        DataLayer dataLayer = new DataLayer(filesPath);
-        dataLayer.setRwImplemetation(setRWImplement());
 
-        AnimalsGenerator animalsGenerator = new AnimalsGenerator();
-        List<Animal> zoo = animalsGenerator.generateAnimals();
-        System.out.println("Generated animals:");
-        printAnimals(zoo);
+        System.out.println("Demonstration with one animal");
+        System.out.println("================================================");
+        runAnimal(filesPath);
+        System.out.println("================================================");
 
-        System.out.println("-------------------");
+        System.out.println();
 
-        dataLayer.saveAll(zoo);
-        zoo = null;
-
-        zoo = dataLayer.loadAll();
-        System.out.println("Loaded animals:");
-        printAnimals(zoo);
-        System.out.println("---------------");
-
-        Cat testAnimal = new Cat(123, 155, 50, "Black", "Behemoth", false);
-        String filename = String.format("%s.dat", testAnimal.getClass().getSimpleName());
-        System.out.println("Test animal");
-        printAnimal(testAnimal);
-        dataLayer.setFile(filename);
-        dataLayer.saveToFile(filename, testAnimal);
-
-        System.out.println("Load test animal:");
-        Animal testAnimal2 = dataLayer.loadFromFile(filename, Cat.class);
-        printAnimal(testAnimal2);
-    }
-
-    private static void printAnimals(List<Animal> animals){
-        System.out.println("Animals in list:");
-        for (Animal animal : animals){
-            printAnimal(animal);
-        }
-    }
-
-    private static void printAnimal(Animal animal){
-        boolean isWild = (animal instanceof WildAnimal);
-        String type = (isWild) ? "wild animal" : "domestic animal";
-        String formatString = "This animal is a %s. It is a %s. ID: %d, Age: %d, Weight: %5.3f, Color: %s.";
-        String result = String.format(formatString, animal.getClass().getSimpleName(), type, animal.getId(), animal.getAge(), animal.getWeight(),
-                animal.getColor());
-        if (!isWild){
-            result = result.concat(String.format(" Its' name is %s.", ((Pet)animal).getName()));
-        }
-        System.out.println(result);
+        System.out.println("Demonstration with Zoo");
+        System.out.println("================================================");
+        runZoo(filesPath);
+        System.out.println("================================================");
     }
 
     private static void setOutStream(String path) throws Exception{
@@ -68,6 +33,47 @@ public class Main {
     }
 
     private static FileRWInterface setRWImplement(){
-        return new SerializationImpl();
+        //return new SerializationImpl();
+        return new JacksonSerialization();
+    }
+
+    private static void runZoo(String filesPath) throws Exception{
+        DataLayer dataLayer = new DataLayer(filesPath);
+        dataLayer.setRwImplemetation(setRWImplement());
+        System.out.println(String.format("Serialization implementation: %s", dataLayer.getRwImplemetation()));
+        System.out.println();
+
+        AnimalsGenerator animalsGenerator = new AnimalsGenerator();
+        Zoo zoo = new Zoo(animalsGenerator.generateAnimals());
+        System.out.println("Generated animals:");
+        System.out.println(zoo.printAnimals());
+
+        System.out.println("-------------------");
+
+        dataLayer.saveToFile(zoo);
+
+        Zoo zoo2;
+        zoo2 = dataLayer.loadAll();
+        System.out.println("Loaded animals:");
+        System.out.println(zoo2.printAnimals());
+        System.out.println("---------------");
+    }
+
+    private static void runAnimal(String filesPath) throws Exception{
+        DataLayer dataLayer = new DataLayer(filesPath);
+        dataLayer.setRwImplemetation(setRWImplement());
+        System.out.println(String.format("Serialization implementation: %s", dataLayer.getRwImplemetation()));
+        System.out.println();
+
+        Cat testAnimal = new Cat(123, 155, 50, "Black", "Behemoth", false);
+        String filename = String.format("%s.dat", testAnimal.getClass().getSimpleName());
+        System.out.println("Test animal");
+        System.out.println(Zoo.printAnimal(testAnimal));
+        dataLayer.setFile(filename);
+        dataLayer.saveToFile(testAnimal);
+
+        System.out.println("Load test animal:");
+        Animal testAnimal2 = dataLayer.loadFromFile();
+        System.out.println(Zoo.printAnimal(testAnimal2));
     }
 }
