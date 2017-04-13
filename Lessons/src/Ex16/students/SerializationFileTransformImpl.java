@@ -32,7 +32,7 @@ public class SerializationFileTransformImpl implements FileTransformInterface{
     @Override
     public void setFilesPath(String path) {
         this.filesPath = path;
-        this.dataFile = filesPath + "data.dat";
+        this.dataFile = filesPath + "zoo.xml";
     }
 
     public String getFilesPath() {

@@ -35,6 +35,7 @@ public class Main {
     private static FileRWInterface setRWImplement(){
         //return new SerializationImpl();
         return new JacksonSerialization();
+        //return new XmlSerialization();
     }
 
     private static void runZoo(String filesPath) throws Exception{

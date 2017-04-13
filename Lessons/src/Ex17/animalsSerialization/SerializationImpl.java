@@ -1,9 +1,6 @@
 package Ex17.animalsSerialization;
 
-import Ex17.animalsSerialization.animalsClasses.Animal;
-
 import java.io.*;
-import java.util.ArrayList;
 
 public class SerializationImpl implements FileRWInterface{
     @Override
@@ -25,6 +22,6 @@ public class SerializationImpl implements FileRWInterface{
 
     @Override
     public Zoo loadAll(String filename) throws Exception {
-        return (Zoo)(this.loadFromFile(filename, new ArrayList<Animal>().getClass()));
+        return (Zoo)(this.loadFromFile(filename, Zoo.class));
     }
 }
