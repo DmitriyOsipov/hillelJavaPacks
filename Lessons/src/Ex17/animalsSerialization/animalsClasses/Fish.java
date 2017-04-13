@@ -4,6 +4,7 @@ package Ex17.animalsSerialization.animalsClasses;
  * Created by Dreamer on 19.02.2017.
  */
 public class Fish extends WildAnimal {
+    public static final long serialVersionUID = 2017041307L;
     public Fish() {
     }
 

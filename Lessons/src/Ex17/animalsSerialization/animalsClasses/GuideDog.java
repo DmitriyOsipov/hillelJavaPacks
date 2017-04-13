@@ -2,6 +2,7 @@ package Ex17.animalsSerialization.animalsClasses;
 
 
 public class GuideDog extends Dog {
+    public static final long serialVersionUID = 2017041309L;
     private boolean isTrained;
 
     public GuideDog() {

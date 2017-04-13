@@ -6,6 +6,7 @@ package Ex17.animalsSerialization.animalsClasses;
  */
 
 public class WildAnimal extends Animal {
+    public static final long serialVersionUID = 2017041302L;
     private boolean predator;
 
     public WildAnimal() {

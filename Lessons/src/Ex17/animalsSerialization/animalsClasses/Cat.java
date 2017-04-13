@@ -5,6 +5,7 @@ package Ex17.animalsSerialization.animalsClasses;
  * Created by Dreamer on 19.02.2017.
  */
 public class Cat extends Pet {
+    public static final long serialVersionUID = 2017041304L;
     public Cat() {
     }
 

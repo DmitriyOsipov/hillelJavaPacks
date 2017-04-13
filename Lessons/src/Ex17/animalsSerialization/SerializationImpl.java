@@ -4,7 +4,6 @@ import Ex17.animalsSerialization.animalsClasses.Animal;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class SerializationImpl implements FileRWInterface{
     @Override
@@ -24,12 +23,6 @@ public class SerializationImpl implements FileRWInterface{
         return inputStream.readObject();
     }
 
-    /*
-    @Override
-    public List<Animal> loadAll(String filename) throws Exception {
-        return (List<Animal>)this.loadFromFile(filename, new ArrayList<Animal>().getClass());
-    }
-//*/
     @Override
     public Zoo loadAll(String filename) throws Exception {
         return (Zoo)(this.loadFromFile(filename, new ArrayList<Animal>().getClass()));

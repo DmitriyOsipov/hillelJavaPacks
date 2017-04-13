@@ -13,6 +13,7 @@ import java.util.List;
  */
 @JsonTypeInfo(use=JsonTypeInfo.Id.CLASS, include=JsonTypeInfo.As.PROPERTY, property="@class")
 public class Zoo implements Serializable{
+    public static final long serialVersionUID = 2017041300L;
     private List<Animal> zoo;
 
     public Zoo() {

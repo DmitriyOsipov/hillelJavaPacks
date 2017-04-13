@@ -2,11 +2,11 @@ package Ex17.animalsSerialization.animalsClasses;
 
 
 public class Pet extends Animal {
+    public static final long serialVersionUID = 2017041303L;
     private String name;
     private boolean isVacinated;
 
-    public Pet() {
-    }
+    public Pet() {}
 
     public Pet(int id, int age, double weight, String color, String name, boolean isVacinated) {
         super(id, age, weight, color);

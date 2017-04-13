@@ -8,13 +8,13 @@ import java.io.Serializable;
  */
 @JsonTypeInfo(use=JsonTypeInfo.Id.CLASS, include=JsonTypeInfo.As.PROPERTY, property="@class")
 public class Animal implements Serializable{
+    public static final long serialVersionUID = 2017041301L;
     private int id;
     private int age;
     private double weight;
     private String color;
 
-    public Animal() {
-    }
+    public Animal() {}
 
     public Animal(int id, int age, double weight, String color) {
         this.id = id;
