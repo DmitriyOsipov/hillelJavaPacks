@@ -9,12 +9,13 @@ import java.util.TreeMap;
 public class Student implements CsvPrepared, Serializable{
     public static final long serialVersionUID = 2017041102L;
     private char csvSeparator = ';';
-    private final int id;
+    private int id;
     private String name;
     private int groupId=-1;
 
     private Journal journal;
 
+    private Student(){}
 
     public Student(int id, String name) {
         this.id = id;

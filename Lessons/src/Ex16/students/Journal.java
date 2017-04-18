@@ -7,13 +7,15 @@ import java.util.*;
 public class Journal implements CsvPrepared, Serializable{
     public static final long serialVersionUID = 2017041103L;
     private char csvSeparator = ';';
-    private final int studentId;
+    private int studentId;
 
     private Map<String, List<Integer>> journal;
 
+    private Journal(){}
+
     public Journal(int studentId) {
         this.studentId = studentId;
-        this. journal = new TreeMap<>();
+        this.journal = new TreeMap<>();
     }
 
     public int getStudentId() {
