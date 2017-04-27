@@ -6,7 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Enumeration;
+import java.util.Arrays;
+import java.util.Map;
 
 /**
  *
@@ -16,7 +17,6 @@ public class SimpleServlet extends HttpServlet{
 //*
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         resp.setContentType("text/html");
         PrintWriter writer = resp.getWriter();
 
@@ -39,52 +39,49 @@ public class SimpleServlet extends HttpServlet{
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         PrintWriter writer = resp.getWriter();
-
-        Enumeration attributes = req.getAttributeNames();
-                StringBuilder builder = new StringBuilder("<HTML>\n\t<HEAD>\n\t\t<TITLE>Hello world - POST</TITLE>" +
-                                "\n\t</HEAD>\n\t<BODY>\n");
-        builder.append("\t\t<p align = \"center\"><h3>You posted attributes:</h3></p>\n");
-        builder.append("\t\t<Table>");
-        writer.println("<!-- --------------- -->");
-        //writer.println("<!-- " + req.getAttribute("someText").toString() + "-->");
-        while (attributes.hasMoreElements()){
-            builder.append("\n\t\t\t<tr>\n\t\t\t\t<td>");
-            String attrName = attributes.nextElement().toString();
-            writer.println("<!-- " + attrName + "-->");
-            builder.append(attrName);
-            builder.append("</td>\n\t\t\t\t<td>");
-            builder.append(req.getAttribute(attrName).toString());
-            builder.append("\n\t\t\t\t</td>\n\t\t\t</tr>");
-        }
-        builder.append("\n\t\t</Table>\n\t</BODY>\n</HTML>");
-
-        writer.println(builder.toString());
+        writer.println(getPutPostHtml("POST", req.getParameterMap()));
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         PrintWriter writer = resp.getWriter();
+        writer.println(getPutPostHtml("PUT", req.getParameterMap()));
+    }
 
-        Enumeration attributes = req.getAttributeNames();
+    private String getParametersHtmlTable(Map pars){
+        StringBuilder builder = new StringBuilder();
+        String newRowOpen ="\n\t\t\t<tr>";
+        String newRowClose = "\n\t\t\t</tr>";
+        builder.append("\t\t<Table border=\"2\" bordercolor=\"black\">"+
+                 newRowOpen +
+                "\n\t\t\t\t<th>Parameter name</th>" +
+                "\n\t\t\t\t<th>Parameter type</th>" +
+                "\n\t\t\t\t<th>Value</th>" +
+                newRowClose);
 
-        StringBuilder builder = new StringBuilder("<HTML>\n\t<HEAD>\n\t\t<TITLE>Hello world - PUT</TITLE>" +
-                "\n\t</HEAD>\n\t<BODY>\n");
-        builder.append("\t\t<p align = \"center\"><h3>You putted attributes:</h3></p>\n");
-        builder.append("\t\t<Table>");
-        writer.println("<!-- --------------- -->");
-        //writer.println("<!-- " + req.getAttribute("someText").toString() + "-->");
-        while (attributes.hasMoreElements()){
-            builder.append("\n\t\t\t<tr>\n\t\t\t\t<td>");
-            String attrName = attributes.nextElement().toString();
-            writer.println("<!-- " + attrName + "-->");
-            builder.append(attrName);
+        for(Object key : pars.keySet()){
+            builder.append("\n<!--" + key + " -->");
+            builder.append(newRowOpen);
+            builder.append("\n\t\t\t\t<td>");
+            builder.append(key);
             builder.append("</td>\n\t\t\t\t<td>");
-            builder.append(req.getAttribute(attrName).toString());
-            builder.append("\n\t\t\t\t</td>\n\t\t\t</tr>");
+            builder.append(pars.get(key).getClass().getSimpleName());
+            builder.append("</td>\n\t\t\t\t<td>");
+            builder.append(Arrays.toString(((String[])pars.get(key))));
+            builder.append("\n\t\t\t\t</td>");
+            builder.append(newRowClose);
         }
-        builder.append("\n\t\t</Table>\n\t</BODY>\n</HTML>");
+        builder.append("\n\t\t</Table>\n");
+        return builder.toString();
+    }
 
-        writer.println(builder.toString());
+    private String getPutPostHtml(String methodName, Map parametersMap){
+        StringBuilder builder = new StringBuilder("<HTML>\n\t<HEAD>\n\t\t<TITLE>Hello world - " + methodName +"</TITLE>" +
+                "\n\t</HEAD>\n\t<BODY>\n");
+        builder.append("\t\t<p align = \"center\"><h3>Attributes:</h3></p>\n");
+        builder.append(getParametersHtmlTable(parametersMap));
+        builder.append("\t</BODY>\n</HTML>");
+        return builder.toString();
     }
 }
