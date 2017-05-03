@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_74" class="java.beans.XMLDecoder">
+ <object class="main.java.Ex17.animalsSerialization.animalsClasses.Cat">
+  <void property="age">
+   <int>155</int>
+  </void>
+  <void property="color">
+   <string>Black</string>
+  </void>
+  <void property="weight">
+   <double>50.0</double>
+  </void>
+ </object>
+</java>
